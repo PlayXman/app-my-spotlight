@@ -1,6 +1,6 @@
 <template>
-  <div class="settings">
-    <Button v-bind:on-click="toggleOpen" :active="open" class="button">
+  <div>
+    <Button v-bind:on-click="toggleOpen" :active="open">
       <SettingsIcon />
     </Button>
     <transition name="fade">
@@ -33,18 +33,9 @@ export default {
 </script>
 
 <style scoped>
-.settings {
-  position: absolute;
-  left: var(--main-padding);
-  right: var(--main-padding);
-  top: var(--main-padding);
-  bottom: var(--main-padding);
-}
-
-.button {
-  position: absolute;
-  bottom: 0;
-  left: 0;
+div {
+  position: relative;
+  overflow: visible;
 }
 
 .fade-enter-active,

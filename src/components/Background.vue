@@ -1,18 +1,18 @@
 <template>
-  <div class="modal__wrapper" :style="{ backgroundImage: `url(${src})` }" />
+  <div :style="{ backgroundImage: `url(${src})` }" />
 </template>
 
 <script>
 import BgPicture from "../models/BgPicture";
 
+const bgPicture = new BgPicture();
+
 export default {
   name: "Background",
   data: () => ({
-    src: ""
+    src: bgPicture.getLastImage()
   }),
   mounted() {
-    const bgPicture = new BgPicture();
-
     if (bgPicture.isSetCorrectly()) {
       bgPicture
         .getImage()
@@ -28,7 +28,7 @@ export default {
 </script>
 
 <style scoped>
-.modal__wrapper {
+div {
   position: absolute;
   left: 0;
   right: 0;
@@ -37,5 +37,6 @@ export default {
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
+  transition: background ease 150ms;
 }
 </style>
