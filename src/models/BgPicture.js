@@ -32,6 +32,13 @@ class BgPicture {
   }
 
   /**
+   * @returns {string} Last downloaded image
+   */
+  getLastImage() {
+    return this._getLastPic();
+  }
+
+  /**
    * @returns {Promise<String, String>} Last pic url if rejected
    */
   getImage() {
@@ -47,7 +54,9 @@ class BgPicture {
             const url = json.urls.raw;
             if (url) {
               this._saveNewPic(url);
-              resolve(this._formatPic(url));
+              this._preloadImage(this._formatPic(url), formattedUrl => {
+                resolve(formattedUrl);
+              });
             }
           })
           .catch(() => {
@@ -122,6 +131,20 @@ class BgPicture {
       storage.unsplash.updateTimestamp.key,
       String(Date.now())
     );
+  }
+
+  /**
+   * @param {string} imgUrl
+   * @param {function(string)} cb Returns image's url
+   * @private
+   */
+  _preloadImage(imgUrl, cb) {
+    const img = new Image();
+    img.src = imgUrl;
+
+    img.addEventListener("load", () => {
+      cb(imgUrl);
+    });
   }
 }
 

@@ -42,9 +42,8 @@ export default {
 .modal {
   position: absolute;
   left: 0;
-  width: 100%;
+  width: calc(100vw - 2 * var(--main-padding));
   max-width: 400px;
-  top: 0;
   bottom: 3.5rem;
   overflow: auto;
   background: rgba(255, 255, 255, 0.8);
