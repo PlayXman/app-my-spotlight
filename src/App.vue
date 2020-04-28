@@ -2,14 +2,23 @@
   <div class="app">
     <Background />
     <div class="content">
-      <div class="row--top">
+      <div class="row row--top">
         <div></div>
-        <div></div>
+        <div>
+          <Button link="https://mail.google.com/mail/u/0/"
+            ><GmailIcon
+          /></Button>
+          <Button link="https://calendar.google.com/calendar/r"
+            ><CalendarIcon
+          /></Button>
+          <Button link="https://drive.google.com/drive/"><DriveIcon /></Button>
+          <Button link="https://keep.google.com"><KeepIcon /></Button>
+        </div>
       </div>
-      <div class="row--middle">
+      <div class="row row--middle">
         <Time />
       </div>
-      <div class="row--bottom">
+      <div class="row row--bottom">
         <div>
           <Settings />
         </div>
@@ -23,10 +32,20 @@
 import Time from "./components/Time";
 import Background from "./components/Background";
 import Settings from "./components/settings/Settings";
+import Button from "./components/Button";
+import KeepIcon from "./components/icons/KeepIcon";
+import DriveIcon from "./components/icons/DriveIcon";
+import GmailIcon from "./components/icons/GmailIcon";
+import CalendarIcon from "./components/icons/CalendarIcon";
 
 export default {
   name: "App",
   components: {
+    CalendarIcon,
+    GmailIcon,
+    DriveIcon,
+    KeepIcon,
+    Button,
     Settings,
     Background,
     Time
@@ -76,9 +95,20 @@ body {
   padding: var(--main-padding);
 }
 
+.row {
+  display: flex;
+}
+
+.row > div > * {
+  display: inline-block;
+  vertical-align: middle;
+}
+.row > div > *:not(:last-child) {
+  margin-right: 0.5rem;
+}
+
 .row--top,
 .row--bottom {
-  display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
 }
@@ -92,7 +122,6 @@ body {
 }
 
 .row--middle {
-  display: flex;
   flex-direction: column;
   align-items: center;
 }
