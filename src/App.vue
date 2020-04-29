@@ -3,7 +3,9 @@
     <Background />
     <div class="content">
       <div class="row row--top">
-        <div></div>
+        <div>
+          <Weather />
+        </div>
         <div>
           <Button link="https://mail.google.com/mail/u/0/"
             ><GmailIcon
@@ -37,10 +39,12 @@ import KeepIcon from "./components/icons/KeepIcon";
 import DriveIcon from "./components/icons/DriveIcon";
 import GmailIcon from "./components/icons/GmailIcon";
 import CalendarIcon from "./components/icons/CalendarIcon";
+import Weather from "./components/Weather";
 
 export default {
   name: "App",
   components: {
+    Weather,
     CalendarIcon,
     GmailIcon,
     DriveIcon,
@@ -100,7 +104,6 @@ body {
 }
 
 .row > div > * {
-  display: inline-block;
   vertical-align: middle;
 }
 .row > div > *:not(:last-child) {
@@ -114,7 +117,7 @@ body {
 }
 
 .row--top {
-  align-items: flex-start;
+  align-items: center;
 }
 
 .row--bottom {

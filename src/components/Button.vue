@@ -28,7 +28,7 @@ export default {
 
 <style scoped>
 a {
-  display: block;
+  display: inline-block;
   width: 3rem;
   height: 3rem;
   padding: 0.4em;

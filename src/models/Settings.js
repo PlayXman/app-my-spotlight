@@ -17,12 +17,26 @@ const STORAGE = {
     updateTimestamp: {
       key: "unsplash_update_timestamp"
     }
+  },
+  weather: {
+    apiKey: {
+      key: "weather_api_key",
+      label: "OpenWeatherMap Api Key",
+      type: "text"
+    },
+    weather: {
+      key: "weather_last_weather"
+    },
+    updateTimestamp: {
+      key: "weather_update_timestamp"
+    }
   }
 };
 
 /** What needs to be set by user */
 const SETTINGS_NEEDED = {
-  unsplash: ["apiKey", "interval"]
+  unsplash: ["apiKey", "interval"],
+  weather: ["apiKey"]
 };
 
 class Settings {

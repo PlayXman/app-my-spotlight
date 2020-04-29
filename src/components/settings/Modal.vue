@@ -10,6 +10,7 @@
         v-model="field.value"
       />
       <button type="submit" class="button">Save</button>
+      <span class="saved" v-if="saved">| success</span>
     </form>
   </div>
 </template>
@@ -24,7 +25,8 @@ export default {
   name: "Modal",
   components: { Field },
   data: () => ({
-    fields: settings.getFields()
+    fields: settings.getFields(),
+    saved: false
   }),
   methods: {
     /**
@@ -33,6 +35,7 @@ export default {
     submit(e) {
       e.preventDefault();
       settings.saveFields(this.fields);
+      this.saved = true;
     }
   }
 };
@@ -63,5 +66,11 @@ export default {
 
 .button:hover {
   background: var(--action-hover-color);
+}
+
+.saved {
+  display: inline-block;
+  color: var(--action-color);
+  margin-left: 0.5rem;
 }
 </style>
