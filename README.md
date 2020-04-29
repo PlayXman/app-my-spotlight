@@ -30,7 +30,7 @@ Roadmap
 
 - [x] Time
 - [x] Background
-- [ ] Some Google services
+- [x] Some Google services
 - [ ] Temperature
 - [ ] Todoist
 - [ ] Google Calendar

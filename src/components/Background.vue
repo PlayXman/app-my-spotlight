@@ -1,7 +1,12 @@
 <template>
   <div>
     <div class="image" :style="{ backgroundImage: `url(${src})` }" />
-    <div class="image image--new" v-if="transition" :style="{ backgroundImage: `url(${newSrc})` }" :class="{show: transition}" />
+    <div
+      class="image image--new"
+      v-if="transition"
+      :style="{ backgroundImage: `url(${newSrc})` }"
+      :class="{ show: transition }"
+    />
   </div>
 </template>
 
@@ -15,25 +20,23 @@ export default {
   data: () => ({
     src: bgPicture.getLastImage(),
     transition: false,
-    newSrc: ''
+    newSrc: ""
   }),
   mounted() {
     if (bgPicture.isSetCorrectly()) {
-      bgPicture
-        .getImage()
-        .then(url => {
-          if(this.src !== url) {
-            this.newSrc = url;
-            this.transition = true;
+      bgPicture.getImage().then(url => {
+        if (this.src !== url) {
+          this.newSrc = url;
+          this.transition = true;
 
-            setTimeout(() => {
-              this.src = url;
-            }, 200);
-            setTimeout(() => {
-              this.transition = false;
-            }, 500)
-          }
-        });
+          setTimeout(() => {
+            this.src = url;
+          }, 200);
+          setTimeout(() => {
+            this.transition = false;
+          }, 500);
+        }
+      });
     }
   }
 };
