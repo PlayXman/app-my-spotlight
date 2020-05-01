@@ -1,11 +1,6 @@
 /** Complete local storage settings */
 const STORAGE = {
   unsplash: {
-    apiKey: {
-      key: "unsplash_api_key",
-      label: "Unsplash Api Key",
-      type: "text"
-    },
     picture: {
       key: "unsplash_last_pic_src"
     },
@@ -35,8 +30,7 @@ const STORAGE = {
 
 /** What needs to be set by user */
 const SETTINGS_NEEDED = {
-  unsplash: ["apiKey", "interval"],
-  weather: ["apiKey"]
+  unsplash: ["interval"]
 };
 
 class Settings {
