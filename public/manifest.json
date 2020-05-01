@@ -1,0 +1,15 @@
+{
+  "manifest_version": 2,
+  "name": "StartPage",
+  "icons": {
+    "48": "/img/icons/icon-48x48.png",
+    "192": "/img/icons/icon-192x192.png",
+    "512": "/img/icons/icon-512x512.png"
+  },
+  "chrome_settings_overrides": {
+    "homepage": "index.html"
+  },
+  "chrome_url_overrides" : {
+    "newtab": "index.html"
+  }
+}

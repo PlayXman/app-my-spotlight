@@ -57,7 +57,7 @@ class Weather {
   }
 
   _getApiKey() {
-    return localStorage.getItem(storage.weather.apiKey.key) || "";
+    return process.env.VUE_APP_OPENWEATHERMAP_API_KEY || "";
   }
 
   /**

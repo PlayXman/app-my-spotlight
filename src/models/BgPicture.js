@@ -73,7 +73,7 @@ class BgPicture {
    * @private
    */
   _getApiKey() {
-    return localStorage.getItem(storage.unsplash.apiKey.key) || "";
+    return process.env.VUE_APP_UNSPLASH_API_KEY || '';
   }
 
   /**
