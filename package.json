@@ -2,12 +2,13 @@
   "name": "app-startpage",
   "description": "Personal browser's start page.",
   "homepage": "https://github.com/PlayXman/app-startpage#readme",
-  "version": "2.0.0",
+  "version": "2.1.1",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build && node postBuild.js",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "cleanup": "node cleanup.js"
   },
   "dependencies": {
     "core-js": "^3.6.4",

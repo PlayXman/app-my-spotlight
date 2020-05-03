@@ -1,11 +1,11 @@
-const fs = require('fs');
+const fs = require("fs");
 const fsp = fs.promises;
-const packageJson = require('./package.json');
-const archiver = require('archiver');
-const del = require('del');
+const packageJson = require("./package.json");
+const archiver = require("archiver");
+const del = require("del");
 
-const DIST_PATH = './dist'
-const BUILD_PATH = './build';
+const DIST_PATH = "./dist";
+const BUILD_PATH = "./build";
 
 class PostBuild {
   /**
@@ -14,20 +14,20 @@ class PostBuild {
    */
   static async updateManifest() {
     try {
-      const manifestPath = DIST_PATH + '/manifest.json';
+      const manifestPath = DIST_PATH + "/manifest.json";
 
-      console.log('Manifest is being updated...');
-      const fileContent = await fsp.readFile(manifestPath, 'utf8');
+      console.log("Manifest is being updated...");
+      const fileContent = await fsp.readFile(manifestPath, "utf8");
       const manifest = JSON.parse(fileContent);
 
       manifest.version = packageJson.version;
       manifest.description = packageJson.description;
       manifest.homepage_url = packageJson.homepage;
 
-      await fsp.writeFile(manifestPath, JSON.stringify(manifest), 'utf8');
-      console.log('...Manifest was modified.');
+      await fsp.writeFile(manifestPath, JSON.stringify(manifest), "utf8");
+      console.log("...Manifest was modified.");
     } catch (e) {
-      throw e;
+      console.log(e);
     }
   }
 
@@ -37,7 +37,7 @@ class PostBuild {
    */
   static async zipFiles() {
     try {
-      const zipPath = BUILD_PATH + '/package.zip';
+      const zipPath = BUILD_PATH + "/package.zip";
 
       await del(BUILD_PATH);
       await fsp.mkdir(BUILD_PATH);
@@ -49,15 +49,15 @@ class PostBuild {
         }
       });
 
-      output.on('close', function () {
-        console.log('Zip created.');
+      output.on("close", function() {
+        console.log("Zip created.");
       });
 
-      archive.on('error', function (err) {
+      archive.on("error", function(err) {
         throw err;
       });
       archive.pipe(output);
-      archive.directory(DIST_PATH + '/', false);
+      archive.directory(DIST_PATH + "/", false);
       archive.finalize();
     } catch (e) {
       console.log(e);
