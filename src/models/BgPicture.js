@@ -73,7 +73,7 @@ class BgPicture {
    * @private
    */
   _getApiKey() {
-    return process.env.VUE_APP_UNSPLASH_API_KEY || '';
+    return process.env.VUE_APP_UNSPLASH_API_KEY || "";
   }
 
   /**
