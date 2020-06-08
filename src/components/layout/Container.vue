@@ -12,10 +12,9 @@ export default {
 
 <style scoped>
 .container {
-  display: flex;
-  flex-direction: column;
-  flex-wrap: wrap;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: auto;
+  grid-template-rows: 1fr auto 1fr;
   position: relative;
   z-index: 5;
   width: 100vw;
