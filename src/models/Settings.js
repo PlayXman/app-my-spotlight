@@ -30,7 +30,7 @@ const STORAGE = {
 
 /** What needs to be set by user */
 const SETTINGS_NEEDED = {
-  unsplash: ["interval"]
+  unsplash: []
 };
 
 class Settings {

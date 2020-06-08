@@ -21,7 +21,7 @@ svg {
   display: block;
   width: 100%;
   height: auto;
-  filter: drop-shadow(0 4px 2px rgba(0, 0, 0, 0.2));
-  fill: var(--font-color);
+  filter: drop-shadow(var(--layout-items-shadow));
+  fill: currentColor;
 }
 </style>

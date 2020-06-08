@@ -1,5 +1,5 @@
 <template>
-  <div v-if="temp > -Infinity">{{ temp }}<span>°C</span></div>
+  <div v-if="temp > -Infinity">{{ temp }}°<span>C</span></div>
 </template>
 
 <script>
@@ -24,14 +24,15 @@ export default {
 
 <style scoped>
 div {
-  font-size: 1.6rem;
-  text-shadow: 0 4px 4px rgba(0, 0, 0, 0.2);
+  font-weight: 100;
+  font-size: 2rem;
+  text-shadow: var(--layout-items-shadow);
 }
 
 span {
   display: inline-block;
-  font-size: 1rem;
+  font-size: 0.5em;
   vertical-align: top;
-  margin-top: 0.15em;
+  margin-top: 0.2em;
 }
 </style>
