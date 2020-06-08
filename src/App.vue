@@ -1,56 +1,62 @@
 <template>
   <div class="app">
     <Background />
-    <div class="content">
-      <div class="row row--top">
-        <div>
+    <Container>
+      <Row align="top">
+        <Column>
           <Weather />
-        </div>
-        <div>
-          <Button link="https://mail.google.com/mail/u/0/"
-            ><GmailIcon
-          /></Button>
-          <Button link="https://calendar.google.com/calendar/r"
-            ><CalendarIcon
-          /></Button>
-          <Button link="https://drive.google.com/drive/"><DriveIcon /></Button>
-          <Button link="https://keep.google.com"><KeepIcon /></Button>
-        </div>
-      </div>
-      <div class="row row--middle">
+        </Column>
+        <Column>
+          <Button link="https://mail.google.com/mail/u/0/">
+            <GmailIcon />
+          </Button>
+          <Button link="https://calendar.google.com/calendar/r">
+            <CalendarIcon />
+          </Button>
+          <Button link="https://drive.google.com/drive/">
+            <DriveIcon />
+          </Button>
+          <Button link="https://keep.google.com">
+            <KeepIcon />
+          </Button>
+        </Column>
+      </Row>
+      <Row align="middle">
         <Time />
-      </div>
-      <div class="row row--bottom">
-        <div>
-          <Settings />
-        </div>
-        <div></div>
-      </div>
-    </div>
+      </Row>
+      <Row align="bottom">
+        <Column />
+        <Column />
+      </Row>
+    </Container>
   </div>
 </template>
 
 <script>
 import Time from "./components/Time";
 import Background from "./components/Background";
-import Settings from "./components/settings/Settings";
 import Button from "./components/Button";
 import KeepIcon from "./components/icons/KeepIcon";
 import DriveIcon from "./components/icons/DriveIcon";
 import GmailIcon from "./components/icons/GmailIcon";
 import CalendarIcon from "./components/icons/CalendarIcon";
 import Weather from "./components/Weather";
+import Container from "./components/layout/Container";
+import Row from "./components/layout/Row";
+import Column from "./components/layout/Column";
 
 export default {
   name: "App",
   components: {
+    Column,
+    Container,
+    Row,
     Weather,
     CalendarIcon,
     GmailIcon,
     DriveIcon,
     KeepIcon,
     Button,
-    Settings,
     Background,
     Time
   }
@@ -63,14 +69,15 @@ export default {
   --font-dark-color: #585858;
   --action-color: #16a1d7;
   --action-hover-color: #26b1ec;
-  --main-padding: 2rem;
+  --main-padding: 1.8rem;
   --element-border-radius: 4px;
+  --layout-items-shadow: 0 2px 2px rgba(0, 0, 0, 0.5);
 }
 
 html,
 body {
   margin: 0;
-  font-family: "Open Sans", sans-serif;
+  font-family: "Josefin Sans", sans-serif;
 }
 
 * {
@@ -78,54 +85,9 @@ body {
 }
 
 .app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
   position: relative;
   width: 100vw;
   height: 100vh;
   color: var(--font-color);
-}
-
-.content {
-  display: flex;
-  flex-direction: column;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  position: relative;
-  z-index: 5;
-  width: 100vw;
-  height: 100vh;
-  padding: var(--main-padding);
-}
-
-.row {
-  display: flex;
-}
-
-.row > div > * {
-  vertical-align: middle;
-}
-.row > div > *:not(:last-child) {
-  margin-right: 0.5rem;
-}
-
-.row--top,
-.row--bottom {
-  justify-content: space-between;
-  flex-wrap: wrap;
-}
-
-.row--top {
-  align-items: center;
-}
-
-.row--bottom {
-  align-items: flex-end;
-}
-
-.row--middle {
-  flex-direction: column;
-  align-items: center;
 }
 </style>

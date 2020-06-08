@@ -2,6 +2,7 @@ import { storage } from "./Settings";
 import Unsplash from "unsplash-js";
 import { toJson } from "unsplash-js/lib/unsplash";
 
+/** @link https://unsplash.com/documentation#supported-parameters */
 const FORMAT_SETTINGS = {
   w: "1920",
   h: "1080",
@@ -11,6 +12,14 @@ const FORMAT_SETTINGS = {
   fit: "crop",
   dpr: "1"
 };
+
+/** @link https://unsplash.com/documentation#get-a-random-photo */
+const PHOTO_CATEGORY_PARAMS = {
+  query: "landscape",
+  orientation: "landscape"
+};
+
+const REFRESH_INTERVAL = 30;
 
 class BgPicture {
   constructor() {
@@ -45,10 +54,7 @@ class BgPicture {
     return new Promise((resolve, reject) => {
       if (this._shouldUpdate()) {
         this._unsplash.photos
-          .getRandomPhoto({
-            query: "landscape",
-            orientation: "landscape"
-          })
+          .getRandomPhoto(PHOTO_CATEGORY_PARAMS)
           .then(toJson)
           .then(json => {
             const url = json.urls.raw;
@@ -83,10 +89,9 @@ class BgPicture {
   _shouldUpdate() {
     const timestamp =
       localStorage.getItem(storage.unsplash.updateTimestamp.key) || 1;
-    const interval = localStorage.getItem(storage.unsplash.interval.key);
 
-    if (timestamp && interval) {
-      const t = Number(timestamp) + Number(interval) * 60 * 1000;
+    if (timestamp) {
+      const t = Number(timestamp) + REFRESH_INTERVAL * 60 * 1000;
       if (Date.now() >= t) {
         return true;
       }

@@ -1,5 +1,10 @@
 <template>
-  <a :href="link" :class="{ active: isActive }" v-on:click="onClick">
+  <a
+    :href="link"
+    class="link"
+    :class="{ 'link--active': isActive }"
+    v-on:click="onClick"
+  >
     <slot />
   </a>
 </template>
@@ -27,29 +32,48 @@ export default {
 </script>
 
 <style scoped>
-a {
+.link {
   display: inline-block;
-  width: 3rem;
-  height: 3rem;
-  padding: 0.4em;
-  transition: background-color 150ms ease-in;
-  background-color: transparent;
+  vertical-align: top;
+  width: 3em;
+  height: 3em;
+  padding: 0.5em;
   text-decoration: none;
   border-radius: 50%;
   color: inherit;
-  border: 1px solid transparent;
+  border: 2px solid transparent;
+  position: relative;
+  transition: border-color 150ms ease;
 }
 
-a:hover {
-  background-color: rgba(0, 0, 0, 0.1);
+.link:before {
+  content: "";
+  display: block;
+  position: absolute;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 50%;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  transform: scale(0);
+  opacity: 0;
+  transition: transform 200ms ease-out, opacity 200ms ease;
+}
+
+.link:hover {
   text-decoration: none;
 }
+.link:hover:before {
+  transform: scale(1);
+  opacity: 1;
+}
 
-a:focus {
+.link:focus {
   outline: none;
 }
 
-.active {
+.link--active {
   border-color: var(--action-hover-color);
 }
 </style>

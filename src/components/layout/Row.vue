@@ -1,0 +1,49 @@
+<template>
+  <div class="row" :class="[alignClass]">
+    <slot />
+  </div>
+</template>
+
+<script>
+export default {
+  name: "Row",
+  props: {
+    align: {
+      type: String,
+      validator: function(val) {
+        return ["top", "middle", "bottom"].includes(val);
+      }
+    }
+  },
+  computed: {
+    alignClass: function() {
+      return `row--${this.align}`;
+    }
+  }
+};
+</script>
+
+<style scoped>
+.row {
+  display: flex;
+}
+
+.row--top,
+.row--bottom {
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.row--top {
+  align-items: flex-start;
+}
+
+.row--bottom {
+  align-items: flex-end;
+}
+
+.row--middle {
+  flex-direction: column;
+  align-items: center;
+}
+</style>

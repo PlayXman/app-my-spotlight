@@ -1,5 +1,5 @@
 <template>
-  <div class="modal__wrapper">
+  <div>
     {{ time }}
   </div>
 </template>
@@ -29,9 +29,10 @@ export default {
 </script>
 
 <style scoped>
-.modal__wrapper {
+div {
   font-size: 9rem;
+  font-weight: 100;
   line-height: 1;
-  text-shadow: 0 4px 16px rgba(0, 0, 0, 0.25), 0 4px 6px rgba(0, 0, 0, 0.1);
+  text-shadow: 0 4px 6px rgba(0, 0, 0, 0.35), 0 2px 2px rgba(0, 0, 0, 0.25);
 }
 </style>
