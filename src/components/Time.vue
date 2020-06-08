@@ -30,9 +30,15 @@ export default {
 
 <style scoped>
 div {
-  font-size: 9rem;
+  font-size: 5.5rem;
   font-weight: 100;
   line-height: 1;
   text-shadow: 0 4px 6px rgba(0, 0, 0, 0.35), 0 2px 2px rgba(0, 0, 0, 0.25);
+}
+
+@media (min-width: 32em) {
+  div {
+    font-size: 9rem;
+  }
 }
 </style>

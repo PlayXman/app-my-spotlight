@@ -24,8 +24,9 @@ export default {
 
 <style scoped>
 div {
-  font-weight: 100;
+  font-weight: 200;
   font-size: 2rem;
+  padding: 0.5rem;
   text-shadow: var(--layout-items-shadow);
 }
 
