@@ -5,9 +5,7 @@ const STORAGE = {
       key: "unsplash_last_pic_src"
     },
     interval: {
-      key: "unsplash_interval",
-      label: "Unsplash new pic interval (in minutes)",
-      type: "number"
+      key: "unsplash_interval"
     },
     updateTimestamp: {
       key: "unsplash_update_timestamp"
@@ -15,9 +13,7 @@ const STORAGE = {
   },
   weather: {
     apiKey: {
-      key: "weather_api_key",
-      label: "OpenWeatherMap Api Key",
-      type: "text"
+      key: "weather_api_key"
     },
     weather: {
       key: "weather_last_weather"
@@ -25,12 +21,25 @@ const STORAGE = {
     updateTimestamp: {
       key: "weather_update_timestamp"
     }
+  },
+  todoist: {
+    userToken: {
+      key: "todoist_token",
+      label: "Your personal api token",
+      type: "text"
+    },
+    items: {
+      key: "todoist_items"
+    },
+    updateTimestamp: {
+      key: "todoist_update_timestamp"
+    }
   }
 };
 
 /** What needs to be set by user */
 const SETTINGS_NEEDED = {
-  unsplash: []
+  todoist: ["userToken"]
 };
 
 class Settings {

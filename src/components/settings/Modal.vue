@@ -49,10 +49,13 @@ export default {
   max-width: 400px;
   bottom: 3.5rem;
   overflow: auto;
-  background: rgba(255, 255, 255, 0.8);
-  color: var(--font-dark-color);
+  background: rgba(0, 0, 0, 0.8);
+  color: var(--font-color);
   box-shadow: 0 4px 16px 0 rgba(0, 0, 0, 0.2);
   padding: 2rem;
+  border-radius: var(--element-border-radius);
+  border: 2px solid var(--action-hover-color);
+  z-index: 10;
 }
 
 .button {
@@ -60,6 +63,7 @@ export default {
   border-radius: var(--element-border-radius);
   padding: 0.4em 0.8em;
   font-size: 1.2rem;
+  font-family: inherit;
   color: white;
   background: var(--action-color);
 }

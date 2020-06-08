@@ -25,8 +25,12 @@
         <Time />
       </Row>
       <Row align="bottom">
-        <Column />
-        <Column />
+        <Column>
+          <Settings />
+        </Column>
+        <Column>
+          <Todos />
+        </Column>
       </Row>
     </Container>
   </div>
@@ -44,10 +48,14 @@ import Weather from "./components/Weather";
 import Container from "./components/layout/Container";
 import Row from "./components/layout/Row";
 import Column from "./components/layout/Column";
+import Todos from "./components/todos/Todos";
+import Settings from "./components/settings/Settings";
 
 export default {
   name: "App",
   components: {
+    Settings,
+    Todos,
     Column,
     Container,
     Row,
@@ -70,7 +78,7 @@ export default {
   --action-color: #16a1d7;
   --action-hover-color: #26b1ec;
   --main-padding: 1rem;
-  --element-border-radius: 4px;
+  --element-border-radius: 16px;
   --layout-items-shadow: 0 2px 2px rgba(0, 0, 0, 0.5);
 }
 

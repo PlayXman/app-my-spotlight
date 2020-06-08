@@ -31,19 +31,18 @@ export default {
 .row--top,
 .row--bottom {
   justify-content: space-between;
-  flex-wrap: wrap;
 }
 
 .row--top {
   align-items: flex-start;
 }
 
-.row--bottom {
-  align-items: flex-end;
-}
-
 .row--middle {
   flex-direction: column;
   align-items: center;
+}
+
+.row--bottom {
+  align-items: flex-end;
 }
 </style>
