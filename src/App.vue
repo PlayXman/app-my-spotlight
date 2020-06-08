@@ -69,7 +69,7 @@ export default {
   --font-dark-color: #585858;
   --action-color: #16a1d7;
   --action-hover-color: #26b1ec;
-  --main-padding: 1.8rem;
+  --main-padding: 1rem;
   --element-border-radius: 4px;
   --layout-items-shadow: 0 2px 2px rgba(0, 0, 0, 0.5);
 }
@@ -89,5 +89,11 @@ body {
   width: 100vw;
   height: 100vh;
   color: var(--font-color);
+}
+
+@media (min-width: 32em) {
+  :root {
+    --main-padding: 1.8rem;
+  }
 }
 </style>
