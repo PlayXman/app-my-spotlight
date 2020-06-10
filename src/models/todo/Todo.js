@@ -19,20 +19,17 @@ class Todo {
     const now = new Date();
 
     let d = "";
-    const diff =
-      now.getDay() -
-      date.getDay() +
-      now.getFullYear() -
-      date.getFullYear() +
-      now.getMonth() -
-      date.getMonth();
+    let diff = now.getFullYear() - date.getFullYear();
+    diff += now.getMonth() - date.getMonth();
+    diff *= 10;
+    diff += now.getDate() - date.getDate();
 
     if (diff === 0) {
       d = "today";
     } else if (diff === 1) {
       d = "yesterday";
     } else {
-      d = `${date.getDay()}.${date.getMonth() + 1}.`;
+      d = `${date.getDate()}.${date.getMonth() + 1}.`;
     }
 
     return d;
