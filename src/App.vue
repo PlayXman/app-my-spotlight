@@ -82,6 +82,18 @@ export default {
   --layout-items-shadow: 0 2px 2px rgba(0, 0, 0, 0.5);
 }
 
+@font-face {
+  font-family: Josefin Sans;
+  src: url("../public/fonts/JosefinSans-Thin.ttf");
+  font-weight: 100;
+}
+
+@font-face {
+  font-family: Josefin Sans;
+  src: url("../public/fonts/JosefinSans-ExtraLight.ttf");
+  font-weight: 200;
+}
+
 html,
 body {
   margin: 0;
