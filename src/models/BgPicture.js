@@ -59,10 +59,15 @@ class BgPicture {
           .then(json => {
             const url = json.urls.raw;
             if (url) {
-              this._saveNewPic(url);
-              this._preloadImage(this._formatPic(url), formattedUrl => {
-                resolve(formattedUrl);
-              });
+              this._preloadImage(this._formatPic(url))
+                .then(formattedPic => {
+                  this._saveNewPic(formattedPic);
+                  resolve(formattedPic);
+                })
+                .catch(err => {
+                  console.error(err);
+                  reject(this._getLastPic());
+                });
             }
           })
           .catch(() => {
@@ -107,12 +112,7 @@ class BgPicture {
    */
   _getLastPic() {
     const pic = localStorage.getItem(storage.unsplash.picture.key);
-
-    if (!pic) {
-      return "";
-    }
-
-    return this._formatPic(pic);
+    return !pic ? "" : pic;
   }
 
   /**
@@ -140,16 +140,21 @@ class BgPicture {
 
   /**
    * @param {string} imgUrl
-   * @param {function(string)} cb Returns image's url
+   * @returns {Promise<string,error>}
    * @private
    */
-  _preloadImage(imgUrl, cb) {
-    const img = new Image();
-    img.src = imgUrl;
-
-    img.addEventListener("load", () => {
-      cb(imgUrl);
-    });
+  _preloadImage(imgUrl) {
+    return fetch(imgUrl)
+      .then(response => response.blob())
+      .then(
+        blob =>
+          new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.addEventListener("load", () => resolve(reader.result));
+            reader.addEventListener("error", reject);
+            reader.readAsDataURL(blob);
+          })
+      );
   }
 }
 

@@ -1,6 +1,6 @@
 <template>
-  <div class="todos__wrapper">
-    <ul class="todos" v-if="show">
+  <div class="todos__wrapper" v-if="show">
+    <ul class="todos">
       <Todo
         v-for="item in items"
         :key="item.id"
