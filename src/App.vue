@@ -94,6 +94,12 @@ export default {
   font-weight: 200;
 }
 
+@font-face {
+  font-family: Josefin Sans;
+  src: url("../public/fonts/JosefinSans-Light.ttf");
+  font-weight: 300;
+}
+
 html,
 body {
   margin: 0;
