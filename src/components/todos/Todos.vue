@@ -53,7 +53,8 @@ export default {
   list-style-type: none;
   padding: 0;
   margin: 0;
-  font-weight: 200;
+  font-weight: 300;
+  text-shadow: 0 0 0;
   max-height: 23vh;
   overflow: auto;
   scrollbar-color: rgba(255, 255, 255, 0.2) rgba(0, 0, 0, 0.2);
