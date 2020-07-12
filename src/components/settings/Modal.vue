@@ -60,7 +60,7 @@ export default {
 
 .button {
   border: none;
-  border-radius: var(--element-border-radius);
+  border-radius: 0.5rem;
   padding: 0.4em 0.8em;
   font-size: 1.2rem;
   font-family: inherit;
