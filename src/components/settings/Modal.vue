@@ -1,5 +1,5 @@
 <template>
-  <div class="modal">
+  <Box class="modal" bg>
     <form v-on:submit="submit">
       <Field
         v-for="field in fields"
@@ -12,18 +12,19 @@
       <button type="submit" class="button">Save</button>
       <span class="saved" v-if="saved">| success</span>
     </form>
-  </div>
+  </Box>
 </template>
 
 <script>
 import Field from "./Field";
 import Settings from "../../models/Settings";
+import Box from "../Box";
 
 const settings = new Settings();
 
 export default {
   name: "Modal",
-  components: { Field },
+  components: { Field, Box },
   data: () => ({
     fields: settings.getFields(),
     saved: false
@@ -49,12 +50,6 @@ export default {
   max-width: 400px;
   bottom: 3.5rem;
   overflow: auto;
-  background: rgba(0, 0, 0, 0.8);
-  color: var(--font-color);
-  box-shadow: 0 4px 16px 0 rgba(0, 0, 0, 0.2);
-  padding: 2rem;
-  border-radius: var(--element-border-radius);
-  border: 2px solid var(--action-hover-color);
   z-index: 10;
 }
 

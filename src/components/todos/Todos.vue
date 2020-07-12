@@ -1,5 +1,5 @@
 <template>
-  <div class="todos__wrapper" v-if="show" v-on:click="handleClick">
+  <Box class="todos__wrapper" v-if="show" v-on:click="handleClick">
     <ul class="todos">
       <Todo
         v-for="item in items"
@@ -9,18 +9,19 @@
       />
       <li v-if="items.length === 0">All done!</li>
     </ul>
-  </div>
+  </Box>
 </template>
 
 <script>
 import Todo from "./Todo";
 import Todoist from "../../models/todo/Todoist";
+import Box from "../Box";
 
 const todoist = new Todoist();
 
 export default {
   name: "Todos",
-  components: { Todo },
+  components: { Todo, Box },
   computed: {
     show: function() {
       return todoist.isActive();
@@ -42,17 +43,9 @@ export default {
 
 <style scoped>
 .todos__wrapper {
-  background-color: transparent;
-  padding: 1rem 1.4rem;
   width: 100%;
   max-width: 400px;
-  transition: background-color 200ms ease-out;
-  border-radius: var(--element-border-radius);
   cursor: pointer;
-}
-
-.todos__wrapper:hover {
-  background-color: rgba(0, 0, 0, 0.8);
 }
 
 .todos {
