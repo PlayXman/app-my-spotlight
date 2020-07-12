@@ -78,7 +78,7 @@ export default {
   --action-color: #16a1d7;
   --action-hover-color: #26b1ec;
   --main-padding: 1rem;
-  --element-border-radius: 16px;
+  --element-border-radius: 1rem;
   --layout-items-shadow: 0 2px 2px rgba(0, 0, 0, 0.5);
 }
 

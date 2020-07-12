@@ -41,7 +41,7 @@ input {
   display: block;
   width: 100%;
   border: 1px solid var(--font-dark-color);
-  border-radius: var(--element-border-radius);
+  border-radius: 0.5rem;
   padding: 0.5em;
   font-size: inherit;
 }
