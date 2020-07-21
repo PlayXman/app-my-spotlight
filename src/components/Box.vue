@@ -1,5 +1,9 @@
 <template>
-  <div class="box" :class="{ 'box--visible': bg }">
+  <div
+    class="box"
+    :class="{ 'box--visible': bg }"
+    v-on:click="$emit('click', null)"
+  >
     <slot />
   </div>
 </template>

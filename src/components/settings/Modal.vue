@@ -61,6 +61,7 @@ export default {
   font-family: inherit;
   color: white;
   background: var(--action-color);
+  cursor: pointer;
 }
 
 .button:hover {
