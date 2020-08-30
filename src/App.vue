@@ -29,7 +29,7 @@
           <Settings />
         </Column>
         <Column>
-          <Todos />
+          <TodoList />
         </Column>
       </Row>
     </Container>
@@ -48,14 +48,14 @@ import Weather from "./components/Weather";
 import Container from "./components/layout/Container";
 import Row from "./components/layout/Row";
 import Column from "./components/layout/Column";
-import Todos from "./components/todos/Todos";
+import TodoList from "./components/todoList/TodoList";
 import Settings from "./components/settings/Settings";
 
 export default {
   name: "App",
   components: {
     Settings,
-    Todos,
+    TodoList,
     Column,
     Container,
     Row,

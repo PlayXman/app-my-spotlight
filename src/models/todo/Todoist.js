@@ -49,7 +49,7 @@ class Todoist {
     const data = JSON.parse(storageData).map(item => {
       const todo = new Todo();
       todo.id = item.id;
-      todo.text = item.text;
+      todo.text = item._text;
       todo.createDate = item.createDate;
       todo.dueDate = item._dueDate;
 

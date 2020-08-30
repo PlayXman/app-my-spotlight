@@ -11,7 +11,7 @@
 
 <script>
 export default {
-  name: "Todo",
+  name: "TodoItem",
   props: {
     text: {
       type: String,

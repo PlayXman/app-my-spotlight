@@ -1,8 +1,44 @@
 class Todo {
   id;
-  text;
+  _text;
   createDate;
   _dueDate;
+
+  /**
+   * @param {string} text
+   */
+  set text(text) {
+    this._text = text;
+  }
+
+  /**
+   * @returns {string}
+   */
+  get text() {
+    let text = this._text;
+    text = text.replace(/\[([^\]]+)\]\(https?:\/\/[^)]+\)/g, "$1");
+
+    let m;
+    let lastIndex = 0;
+    let newText = "";
+    const regex = /https?:\/\/([^\s]+)/g;
+    while ((m = regex.exec(text)) !== null) {
+      if (m.index === regex.lastIndex) {
+        regex.lastIndex++;
+      }
+
+      newText += text.slice(lastIndex, m.index);
+      newText += m[1].substr(0, 15) + "...";
+
+      lastIndex = regex.lastIndex;
+    }
+
+    if (newText.length) {
+      text = newText;
+    }
+
+    return text;
+  }
 
   /**
    * @param {string} date
