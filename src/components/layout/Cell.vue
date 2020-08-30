@@ -1,21 +1,21 @@
 <template>
-  <div class="col">
+  <div class="cell">
     <slot />
   </div>
 </template>
 
 <script>
 export default {
-  name: "Column"
+  name: "Cell"
 };
 </script>
 
-<style scoped>
-.col > * {
+<style>
+.cell > * {
   vertical-align: middle;
 }
 
-.col > *:not(:last-child) {
+.cell > *:not(:last-child) {
   margin-right: 0.5rem;
 }
 </style>

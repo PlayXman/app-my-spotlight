@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="time">
     {{ time }}
   </div>
 </template>
@@ -28,8 +28,8 @@ export default {
 };
 </script>
 
-<style scoped>
-div {
+<style>
+.time {
   font-size: 5.5rem;
   font-weight: 100;
   line-height: 1;
@@ -37,7 +37,7 @@ div {
 }
 
 @media (min-width: 32em) {
-  div {
+  .time {
     font-size: 9rem;
   }
 }

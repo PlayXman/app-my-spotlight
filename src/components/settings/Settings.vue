@@ -1,22 +1,22 @@
 <template>
-  <div>
-    <Button v-bind:on-click="toggleOpen" :active="open">
+  <div class="settings">
+    <LayoutButton v-bind:on-click="toggleOpen" :active="open">
       <SettingsIcon />
-    </Button>
+    </LayoutButton>
     <transition name="fade">
-      <Modal v-if="open" />
+      <SettingsModal v-if="open" />
     </transition>
   </div>
 </template>
 
 <script>
-import Button from "../Button";
-import Modal from "./Modal";
+import LayoutButton from "../LayoutButton";
+import SettingsModal from "./SettingsModal";
 import SettingsIcon from "../icons/SettingsIcon";
 
 export default {
   name: "Settings",
-  components: { SettingsIcon, Modal, Button },
+  components: { SettingsIcon, SettingsModal, LayoutButton },
   data: () => ({
     open: false
   }),
@@ -32,8 +32,8 @@ export default {
 };
 </script>
 
-<style scoped>
-div {
+<style>
+.settings {
   position: relative;
   overflow: visible;
 }

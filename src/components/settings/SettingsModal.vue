@@ -1,7 +1,7 @@
 <template>
-  <Box class="modal" bg>
+  <Box class="settingsModal" bg>
     <form v-on:submit="submit">
-      <Field
+      <SettingsField
         v-for="field in fields"
         :key="field.key"
         :type="field.type"
@@ -9,22 +9,22 @@
         :id="field.key"
         v-model="field.value"
       />
-      <button type="submit" class="button">Save</button>
-      <span class="saved" v-if="saved">| success</span>
+      <button type="submit" class="settingsModal__button">Save</button>
+      <span class="settingsModal__saved" v-if="saved">| success</span>
     </form>
   </Box>
 </template>
 
 <script>
-import Field from "./Field";
+import SettingsField from "./SettingsField";
 import Settings from "../../models/Settings";
 import Box from "../Box";
 
 const settings = new Settings();
 
 export default {
-  name: "Modal",
-  components: { Field, Box },
+  name: "SettingsModal",
+  components: { SettingsField, Box },
   data: () => ({
     fields: settings.getFields(),
     saved: false
@@ -42,8 +42,8 @@ export default {
 };
 </script>
 
-<style scoped>
-.modal {
+<style>
+.settingsModal {
   position: absolute;
   left: 0;
   width: calc(100vw - 2 * var(--main-padding));
@@ -53,7 +53,7 @@ export default {
   z-index: 10;
 }
 
-.button {
+.settingsModal__button {
   border: none;
   border-radius: 0.5rem;
   padding: 0.4em 0.8em;
@@ -64,11 +64,11 @@ export default {
   cursor: pointer;
 }
 
-.button:hover {
+.settingsModal__button:hover {
   background: var(--action-hover-color);
 }
 
-.saved {
+.settingsModal__saved {
   display: inline-block;
   color: var(--action-color);
   margin-left: 0.5rem;

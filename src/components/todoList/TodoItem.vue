@@ -1,11 +1,6 @@
 <template>
-  <li class="todo">
-    <a v-if="link" :href="link" class="todo__link">
-      {{ text }} <span class="todo__date" v-if="date">{{ date }}</span>
-    </a>
-    <div v-else>
-      {{ text }} <span class="todo__date" v-if="date">{{ date }}</span>
-    </div>
+  <li class="todoItem">
+    {{ text }} <span class="todoItem__date" v-if="date">{{ date }}</span>
   </li>
 </template>
 
@@ -17,32 +12,22 @@ export default {
       type: String,
       required: true
     },
-    date: String,
-    link: String
+    date: String
   }
 };
 </script>
 
-<style scoped>
-.todo {
+<style>
+.todoItem {
   position: relative;
   padding-left: 1.3em;
 }
 
-.todo:not(:last-child) {
+.todoItem:not(:last-child) {
   margin-bottom: 0.5rem;
 }
 
-.todo__link {
-  color: inherit;
-  text-decoration: none;
-}
-
-.todo__link:hover {
-  text-decoration: underline;
-}
-
-.todo:before {
+.todoItem:before {
   content: "";
   position: absolute;
   left: 0;
@@ -55,7 +40,7 @@ export default {
   height: 0.7em;
 }
 
-.todo__date {
+.todoItem__date {
   font-size: 0.8em;
   display: inline-block;
   padding: 0 0.2em;

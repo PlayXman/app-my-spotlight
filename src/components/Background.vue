@@ -1,5 +1,5 @@
 <template>
-  <div :style="{ backgroundImage: `url(${src})` }" />
+  <div class="background" :style="{ backgroundImage: `url(${src})` }" />
 </template>
 
 <script>
@@ -20,8 +20,8 @@ export default {
 };
 </script>
 
-<style scoped>
-div {
+<style>
+.background {
   position: absolute;
   left: 0;
   right: 0;

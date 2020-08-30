@@ -3,34 +3,34 @@
     <Background />
     <Container>
       <Row align="top">
-        <Column>
+        <Cell>
           <Weather />
-        </Column>
-        <Column>
-          <Button link="https://mail.google.com/mail/u/0/">
+        </Cell>
+        <Cell>
+          <LayoutButton link="https://mail.google.com/mail/u/0/">
             <GmailIcon />
-          </Button>
-          <Button link="https://calendar.google.com/calendar/r">
+          </LayoutButton>
+          <LayoutButton link="https://calendar.google.com/calendar/r">
             <CalendarIcon />
-          </Button>
-          <Button link="https://drive.google.com/drive/">
+          </LayoutButton>
+          <LayoutButton link="https://drive.google.com/drive/">
             <DriveIcon />
-          </Button>
-          <Button link="https://keep.google.com">
+          </LayoutButton>
+          <LayoutButton link="https://keep.google.com">
             <KeepIcon />
-          </Button>
-        </Column>
+          </LayoutButton>
+        </Cell>
       </Row>
       <Row align="middle">
         <Time />
       </Row>
       <Row align="bottom">
-        <Column>
+        <Cell>
           <Settings />
-        </Column>
-        <Column>
+        </Cell>
+        <Cell>
           <TodoList />
-        </Column>
+        </Cell>
       </Row>
     </Container>
   </div>
@@ -39,7 +39,7 @@
 <script>
 import Time from "./components/Time";
 import Background from "./components/Background";
-import Button from "./components/Button";
+import LayoutButton from "./components/LayoutButton";
 import KeepIcon from "./components/icons/KeepIcon";
 import DriveIcon from "./components/icons/DriveIcon";
 import GmailIcon from "./components/icons/GmailIcon";
@@ -47,7 +47,7 @@ import CalendarIcon from "./components/icons/CalendarIcon";
 import Weather from "./components/Weather";
 import Container from "./components/layout/Container";
 import Row from "./components/layout/Row";
-import Column from "./components/layout/Column";
+import Cell from "./components/layout/Cell";
 import TodoList from "./components/todoList/TodoList";
 import Settings from "./components/settings/Settings";
 
@@ -56,7 +56,7 @@ export default {
   components: {
     Settings,
     TodoList,
-    Column,
+    Cell,
     Container,
     Row,
     Weather,
@@ -64,7 +64,7 @@ export default {
     GmailIcon,
     DriveIcon,
     KeepIcon,
-    Button,
+    LayoutButton,
     Background,
     Time
   }
@@ -77,6 +77,7 @@ export default {
   --font-dark-color: #585858;
   --action-color: #16a1d7;
   --action-hover-color: #26b1ec;
+  --action-bg-color: rgba(44, 58, 66, 0.9);
   --main-padding: 1rem;
   --element-border-radius: 1rem;
   --layout-items-shadow: 0 2px 2px rgba(0, 0, 0, 0.5);
