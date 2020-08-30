@@ -50,6 +50,14 @@ import Row from "./components/layout/Row";
 import Cell from "./components/layout/Cell";
 import TodoList from "./components/todoList/TodoList";
 import Settings from "./components/settings/Settings";
+import Storage from "./models/storage/Storage";
+import { DATA_STORE_NAME } from "./models/storage/StorageData";
+import { SETTINGS_STORE_NAME } from "./models/settings/Settings";
+
+//init storage
+Storage()
+  .updateDb(SETTINGS_STORE_NAME, "category")
+  .updateDb(DATA_STORE_NAME, "type");
 
 export default {
   name: "App",
@@ -76,7 +84,6 @@ export default {
   --font-color: #fff;
   --font-dark-color: #585858;
   --action-color: #16a1d7;
-  --action-hover-color: #26b1ec;
   --action-bg-color: rgba(44, 58, 66, 0.9);
   --main-padding: 1rem;
   --element-border-radius: 1rem;
@@ -99,6 +106,12 @@ export default {
   font-family: Josefin Sans;
   src: url("../public/fonts/JosefinSans-Light.ttf");
   font-weight: 300;
+}
+
+@font-face {
+  font-family: Josefin Sans;
+  src: url("../public/fonts/JosefinSans-Bold.ttf");
+  font-weight: 700;
 }
 
 html,

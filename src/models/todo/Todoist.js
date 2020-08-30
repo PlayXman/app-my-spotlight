@@ -1,131 +1,141 @@
-import Todo from "./Todo";
-import { storage } from "../Settings";
+import TodoItem from "./TodoItem";
+import StorageData from "../storage/StorageData";
+import TodolistSettings from "@/models/settings/TodolistSettings";
 
 /** @type {string} */
 const API_URL = "https://api.todoist.com/sync/v8/sync";
 /** @type {number} In minutes */
 const UPDATE_INTERVAL = 2;
+/** @type {string} */
+const STORAGE_KEY = "todolist";
 
 class Todoist {
-  items = [];
-
-  /**
-   * @returns {boolean} Is user token set
-   */
-  isActive() {
-    return this._userToken() !== "";
+  constructor() {
+    /** @type {TodoItem[]} */
+    this.items = [];
+    /** @type {number} @private */
+    this._updated = 0;
   }
 
   /**
-   * @returns {boolean} Is allowed to update
+   * @returns {Promise<boolean>} Is user token set
    */
-  canUpdate() {
-    const lastUpdate =
-      Number(localStorage.getItem(storage.todoist.updateTimestamp.key)) +
-      UPDATE_INTERVAL * 1000 * 60;
-
-    return this.isActive() && lastUpdate < new Date().getTime();
+  async isActive() {
+    return (await this._userToken()) !== "";
   }
 
   /**
    * Shows saved items and loads a new ones.
-   * @returns {[]} Items
+   * @returns {Promise<TodoItem[]>}
    */
-  getItems() {
-    if (this.canUpdate()) {
-      this._fetchAllItems();
+  async getItems() {
+    const cachedItems = await this._loadCachedItems();
+
+    if (await this._shouldUpdate()) {
+      return await this._fetchAllItems();
     }
 
-    return this._loadItemsFromStorage();
+    return cachedItems;
   }
 
   /**
    * Loads items from storage.
-   * @returns {[]}
+   * @returns {Promise<TodoItem[]>}
    * @private
    */
-  _loadItemsFromStorage() {
-    const storageData = localStorage.getItem(storage.todoist.items.key) || "[]";
-    const data = JSON.parse(storageData).map(item => {
-      const todo = new Todo();
-      todo.id = item.id;
-      todo.text = item._text;
-      todo.createDate = item.createDate;
-      todo.dueDate = item._dueDate;
+  async _loadCachedItems() {
+    try {
+      const data = await StorageData.get(STORAGE_KEY);
+      this._updated = data.updated;
+      this.items = data.data.map(item => {
+        const todo = new TodoItem();
+        todo.id = item.id;
+        todo._text = item._text;
+        todo.createDate = item.createDate;
+        todo._dueDate = item._dueDate;
+        return todo;
+      });
+      return this.items;
+    } catch (err) {
+      return [];
+    }
+  }
 
-      return todo;
-    });
+  /**
+   * @returns {Promise<boolean>} Is allowed to update
+   * @private
+   */
+  async _shouldUpdate() {
+    const lastUpdate = this._updated + UPDATE_INTERVAL * 1000 * 60;
 
-    this.items = data;
-    return data;
+    return (await this.isActive()) && lastUpdate < new Date().getTime();
   }
 
   /**
    * Downloads new items from Todoist and saves them.
-   * @returns {Promise<[], void>}
+   * @returns {Promise<TodoItem[]>}
    * @private
    */
-  _fetchAllItems() {
-    return new Promise((resolve, reject) => {
-      const params = new URLSearchParams({
-        token: this._userToken(),
-        sync_token: "*",
-        resource_types: '["items"]'
-      });
+  async _fetchAllItems() {
+    const params = new URLSearchParams({
+      token: await this._userToken(),
+      sync_token: "*",
+      resource_types: '["items"]'
+    });
 
-      const headers = new Headers();
-      headers.append("Content-Type", "application/x-www-form-urlencoded");
+    const headers = new Headers();
+    headers.append("Content-Type", "application/x-www-form-urlencoded");
 
-      fetch(API_URL, {
+    const items = [];
+
+    try {
+      const response = await fetch(API_URL, {
         method: "POST",
         headers: headers,
         body: params
-      })
-        .then(response => response.json())
-        .then(data => {
-          const items = [];
+      });
+      const data = await response.json();
 
-          data.items.forEach(item => {
-            if (item.due) {
-              const todo = new Todo();
-              todo.id = item.id;
-              todo.text = item.content;
-              todo.createDate = item.date_added;
-              todo.dueDate = item.due.date;
+      data.items.forEach(item => {
+        if (item.due) {
+          const todo = new TodoItem();
+          todo.id = item.id;
+          todo.text = item.content;
+          todo.createDate = item.date_added;
+          todo.dueDate = item.due.date;
 
-              items.push(todo);
-            }
-          });
+          items.push(todo);
+        }
+      });
+    } catch (err) {
+      console.error(err);
+      return [];
+    }
 
-          this.items = items;
-          this._saveItems();
+    this.items = items;
+    try {
+      await this._saveItems();
+    } catch (err) {
+      console.error(err);
+    }
 
-          resolve(this.items);
-        })
-        .catch(error => {
-          console.error(error);
-          reject();
-        });
-    });
+    return this.items;
   }
 
   /**
+   * @returns {Promise<void, string>}
    * @private
    */
-  _saveItems() {
-    localStorage.setItem(storage.todoist.items.key, JSON.stringify(this.items));
-    localStorage.setItem(
-      storage.todoist.updateTimestamp.key,
-      String(new Date().getTime())
-    );
+  async _saveItems() {
+    return StorageData.put(STORAGE_KEY, this.items);
   }
 
   /**
-   * @returns {string} Saved user api token
+   * @returns {Promise<string>} Saved user's api token
    * @private
    */
-  _userToken() {
-    return localStorage.getItem(storage.todoist.userToken.key) || "";
+  async _userToken() {
+    return await TodolistSettings.getApiKey();
   }
 }
 

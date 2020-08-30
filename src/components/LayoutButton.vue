@@ -1,10 +1,5 @@
 <template>
-  <a
-    class="layoutButton"
-    :class="{ 'layoutButton--active': isActive }"
-    :href="link"
-    v-on:click="onClick"
-  >
+  <a class="layoutButton" :href="link" v-on:click="onClick">
     <slot />
   </a>
 </template>
@@ -20,8 +15,7 @@ export default {
     link: {
       type: String,
       default: "#"
-    },
-    active: Boolean
+    }
   },
   computed: {
     isActive: function() {
@@ -41,7 +35,6 @@ export default {
   text-decoration: none;
   border-radius: 50%;
   color: inherit;
-  border: 2px solid transparent;
   position: relative;
   transition: border-color 150ms ease;
 }
@@ -71,9 +64,5 @@ export default {
 
 .layoutButton:focus {
   outline: none;
-}
-
-.layoutButton--active {
-  border-color: var(--action-hover-color);
 }
 </style>

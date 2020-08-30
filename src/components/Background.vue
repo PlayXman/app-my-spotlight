@@ -9,13 +9,21 @@ const bgPicture = new BgPicture();
 
 export default {
   name: "Background",
-  data: () => ({
-    src: bgPicture.getLastImage()
-  }),
+  data() {
+    return {
+      src: ""
+    };
+  },
   mounted() {
-    if (bgPicture.isSetCorrectly()) {
-      bgPicture.getImage();
-    }
+    bgPicture
+      .getLastPic()
+      .then(url => {
+        this.src = url;
+      })
+      .catch(url => {
+        this.src = url;
+      });
+    bgPicture.getImage();
   }
 };
 </script>

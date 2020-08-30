@@ -7,7 +7,8 @@
         :text="item.text"
         :date="item.dueDate"
       />
-      <li v-if="items.length === 0">All done!</li>
+      <li v-if="loading">Loading...</li>
+      <li v-else-if="items.length === 0">Free day!</li>
     </ul>
   </Box>
 </template>
@@ -16,27 +17,47 @@
 import TodoItem from "./TodoItem";
 import Todoist from "../../models/todo/Todoist";
 import Box from "../Box";
+import TodolistSettings from "../../models/settings/TodolistSettings";
 
 const todoist = new Todoist();
 
 export default {
   name: "TodoList",
   components: { TodoItem, Box },
-  computed: {
-    show: function() {
-      return todoist.isActive();
-    },
-    items: function() {
-      if (!todoist.isActive()) {
-        return [];
-      }
-      return todoist.getItems().filter(item => item.isDue());
-    }
+  data() {
+    return {
+      items: [],
+      loading: true,
+      show: false
+    };
   },
   methods: {
+    init: function() {
+      todoist.isActive().then(result => {
+        this.show = result;
+
+        if (result) {
+          todoist
+            .getItems()
+            .then(items => {
+              this.items = items.filter(item => item.isDue());
+            })
+            .finally(() => {
+              this.loading = false;
+            });
+        }
+      });
+    },
     handleClick: function() {
       window.location.href = "https://todoist.com/app/";
     }
+  },
+  mounted() {
+    this.init();
+    TodolistSettings.observeUpdate(this.init);
+  },
+  destroyed() {
+    TodolistSettings.removeObserver(this.init);
   }
 };
 </script>
