@@ -1,7 +1,7 @@
 <template>
   <Box class="todos__wrapper" v-if="show" v-on:click="handleClick">
     <ul class="todos">
-      <Todo
+      <TodoItem
         v-for="item in items"
         :key="item.id"
         :text="item.text"
@@ -13,15 +13,15 @@
 </template>
 
 <script>
-import Todo from "./Todo";
+import TodoItem from "./TodoItem";
 import Todoist from "../../models/todo/Todoist";
 import Box from "../Box";
 
 const todoist = new Todoist();
 
 export default {
-  name: "Todos",
-  components: { Todo, Box },
+  name: "TodoList",
+  components: { TodoItem, Box },
   computed: {
     show: function() {
       return todoist.isActive();
