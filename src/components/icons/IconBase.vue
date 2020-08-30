@@ -1,5 +1,5 @@
 <template>
-  <svg width="50" height="50" viewBox="0 0 50 50" :aria-label="name">
+  <svg class="icon" width="50" height="50" viewBox="0 0 50 50" :aria-label="name">
     <slot />
   </svg>
 </template>
@@ -16,8 +16,8 @@ export default {
 };
 </script>
 
-<style scoped>
-svg {
+<style>
+.icon {
   display: block;
   width: 100%;
   height: auto;

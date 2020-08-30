@@ -1,8 +1,8 @@
 <template>
   <a
+    class="layoutButton"
+    :class="{ 'layoutButton--active': isActive }"
     :href="link"
-    class="link"
-    :class="{ 'link--active': isActive }"
     v-on:click="onClick"
   >
     <slot />
@@ -11,7 +11,7 @@
 
 <script>
 export default {
-  name: "Button",
+  name: "LayoutButton",
   props: {
     onClick: {
       type: Function,
@@ -31,8 +31,8 @@ export default {
 };
 </script>
 
-<style scoped>
-.link {
+<style>
+.layoutButton {
   display: inline-block;
   vertical-align: top;
   width: 3em;
@@ -46,11 +46,11 @@ export default {
   transition: border-color 150ms ease;
 }
 
-.link:before {
+.layoutButton:before {
   content: "";
   display: block;
   position: absolute;
-  background: rgba(0, 0, 0, 0.2);
+  background: var(--action-bg-color);
   border-radius: 50%;
   top: 0;
   right: 0;
@@ -61,19 +61,19 @@ export default {
   transition: transform 200ms ease-out, opacity 200ms ease;
 }
 
-.link:hover {
+.layoutButton:hover {
   text-decoration: none;
 }
-.link:hover:before {
+.layoutButton:hover:before {
   transform: scale(1);
   opacity: 1;
 }
 
-.link:focus {
+.layoutButton:focus {
   outline: none;
 }
 
-.link--active {
+.layoutButton--active {
   border-color: var(--action-hover-color);
 }
 </style>

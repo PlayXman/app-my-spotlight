@@ -1,6 +1,6 @@
 <template>
-  <Box class="todos__wrapper" v-if="show" v-on:click="handleClick">
-    <ul class="todos">
+  <Box class="todoList__wrapper" v-if="show" v-on:click="handleClick">
+    <ul class="todoList">
       <TodoItem
         v-for="item in items"
         :key="item.id"
@@ -41,14 +41,14 @@ export default {
 };
 </script>
 
-<style scoped>
-.todos__wrapper {
+<style>
+.todoList__wrapper {
   width: 100%;
   max-width: 400px;
   cursor: pointer;
 }
 
-.todos {
+.todoList {
   list-style-type: none;
   padding: 0;
   margin: 0;

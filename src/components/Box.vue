@@ -17,7 +17,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style>
 .box {
   padding: 1rem 1.4rem;
   border-radius: var(--element-border-radius);
@@ -27,6 +27,6 @@ export default {
 
 .box:hover,
 .box--visible {
-  background-color: rgba(44, 58, 66, 0.9);
+  background-color: var(--action-bg-color);
 }
 </style>

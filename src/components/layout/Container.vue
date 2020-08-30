@@ -10,7 +10,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style>
 .container {
   display: grid;
   grid-template-columns: auto;

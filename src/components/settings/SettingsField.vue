@@ -1,17 +1,33 @@
 <template>
-  <div>
-    <label v-bind:for="id">{{ label }}</label>
-    <input v-bind:id="id" v-bind:type="type" v-model="inputVal" />
+  <div class="settingsField">
+    <label
+      class="settingsField__label"
+      v-bind:for="id"
+    >
+      {{ label }}
+    </label>
+    <input
+      class="settingsField__input"
+      v-bind:id="id"
+      v-bind:type="type"
+      v-model="inputVal"
+    />
   </div>
 </template>
 
 <script>
 export default {
-  name: "Field",
+  name: "SettingsField",
   props: {
     label: String,
-    type: String,
-    id: String,
+    type: {
+      type: String,
+      default: 'text'
+    },
+    id: {
+      type: String,
+      required: true
+    },
     value: String
   },
   computed: {
@@ -27,17 +43,17 @@ export default {
 };
 </script>
 
-<style scoped>
-div:not(:last-child) {
+<style>
+.settingsField:not(:last-child) {
   margin-bottom: 1rem;
 }
 
-label {
+.settingsField__label {
   display: block;
   margin-bottom: 0.4em;
 }
 
-input {
+.settingsField__input {
   display: block;
   width: 100%;
   border: 1px solid var(--font-dark-color);
