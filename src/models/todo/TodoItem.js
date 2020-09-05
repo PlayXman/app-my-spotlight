@@ -1,7 +1,11 @@
-class Todo {
+class TodoItem {
+  /** @type {number} */
   id;
+  /** @type {string} @private */
   _text;
+  /** @type {string} */
   createDate;
+  /** @type {string} @private */
   _dueDate;
 
   /**
@@ -82,4 +86,4 @@ class Todo {
   }
 }
 
-export default Todo;
+export default TodoItem;

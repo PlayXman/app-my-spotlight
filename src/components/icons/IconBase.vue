@@ -1,5 +1,11 @@
 <template>
-  <svg class="icon" width="50" height="50" viewBox="0 0 50 50" :aria-label="name">
+  <svg
+    class="icon"
+    width="50"
+    height="50"
+    viewBox="0 0 50 50"
+    :aria-label="name"
+  >
     <slot />
   </svg>
 </template>

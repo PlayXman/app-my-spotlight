@@ -18,9 +18,19 @@ export default {
 </script>
 
 <style>
+@keyframes appear {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
 .todoItem {
   position: relative;
   padding-left: 1.3em;
+  animation: 300ms ease-out forwards appear;
 }
 
 .todoItem:not(:last-child) {

@@ -1,5 +1,7 @@
 <template>
-  <div v-if="temp > -Infinity" class="weather">{{ temp }}°<span class="weather__unit">C</span></div>
+  <div v-if="temp > -Infinity" class="weather">
+    {{ temp }}°<span class="weather__unit">C</span>
+  </div>
 </template>
 
 <script>
@@ -9,9 +11,11 @@ const weather = new Weather();
 
 export default {
   name: "Weather",
-  data: () => ({
-    temp: weather.getLastWeather()
-  }),
+  data() {
+    return {
+      temp: -Infinity
+    };
+  },
   mounted() {
     if (weather.isSet()) {
       weather.getTemperature().then(temp => {

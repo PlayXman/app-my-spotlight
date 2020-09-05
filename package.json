@@ -2,7 +2,7 @@
   "name": "app-startpage",
   "description": "Personal browser's start page.",
   "homepage": "https://github.com/PlayXman/app-startpage#readme",
-  "version": "2.6.8",
+  "version": "2.7.9",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",

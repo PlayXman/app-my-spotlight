@@ -13,10 +13,12 @@ function createTime() {
 
 export default {
   name: "Time",
-  data: () => ({
-    listener: null,
-    time: createTime()
-  }),
+  data() {
+    return {
+      listener: null,
+      time: createTime()
+    };
+  },
   mounted() {
     this.listener = setInterval(() => {
       this.time = createTime();

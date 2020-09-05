@@ -1,10 +1,10 @@
 <template>
-  <div class="settings">
-    <LayoutButton v-bind:on-click="toggleOpen" :active="open">
+  <div>
+    <LayoutButton :on-click="toggleOpen">
       <SettingsIcon />
     </LayoutButton>
-    <transition name="fade">
-      <SettingsModal v-if="open" />
+    <transition name="settings__fade">
+      <SettingsModal v-if="open" :handle-close="toggleOpen" />
     </transition>
   </div>
 </template>
@@ -33,18 +33,13 @@ export default {
 </script>
 
 <style>
-.settings {
-  position: relative;
-  overflow: visible;
+.settings__fade-enter-active,
+.settings__fade-leave-active {
+  transition: opacity 300ms;
 }
 
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.5s;
-}
-
-.fade-enter,
-.fade-leave-to {
+.settings__fade-enter,
+.settings__fade-leave-to {
   opacity: 0;
 }
 </style>

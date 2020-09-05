@@ -1,76 +1,86 @@
 <template>
-  <Box class="settingsModal" bg>
-    <form v-on:submit="submit">
-      <SettingsField
-        v-for="field in fields"
-        :key="field.key"
-        :type="field.type"
-        :label="field.label"
-        :id="field.key"
-        v-model="field.value"
-      />
-      <button type="submit" class="settingsModal__button">Save</button>
-      <span class="settingsModal__saved" v-if="saved">| success</span>
-    </form>
-  </Box>
+  <div class="settingsModal__wrapper">
+    <Box class="settingsModal" bg>
+      <h2 class="settingsModal__title">Settings</h2>
+      <div>
+        <SettingsCategoryTodolist />
+      </div>
+    </Box>
+    <LayoutButton class="settingsModal__close" :on-click="handleClose">
+      <CloseIcon />
+    </LayoutButton>
+  </div>
 </template>
 
 <script>
-import SettingsField from "./SettingsField";
-import Settings from "../../models/Settings";
 import Box from "../Box";
-
-const settings = new Settings();
+import LayoutButton from "../LayoutButton";
+import CloseIcon from "../icons/CloseIcon";
+import SettingsCategoryTodolist from "./categories/SettingsCategoryTodolist";
 
 export default {
   name: "SettingsModal",
-  components: { SettingsField, Box },
-  data: () => ({
-    fields: settings.getFields(),
-    saved: false
-  }),
+  components: {
+    SettingsCategoryTodolist,
+    CloseIcon,
+    LayoutButton,
+    Box
+  },
+  props: {
+    handleClose: {
+      type: Function,
+      required: true
+    }
+  },
   methods: {
     /**
      * @param {Event} e
      */
-    submit(e) {
-      e.preventDefault();
-      settings.saveFields(this.fields);
-      this.saved = true;
+    onKeyClose(e) {
+      if (e.key === "Escape") {
+        e.preventDefault();
+        this.handleClose(e);
+      }
     }
+  },
+  created() {
+    document.body.addEventListener("keyup", this.onKeyClose);
+  },
+  destroyed() {
+    document.body.removeEventListener("keyup", this.onKeyClose);
   }
 };
 </script>
 
 <style>
+:root {
+  --settings-second-color: #a0b3bf;
+}
+
 .settingsModal {
-  position: absolute;
+  max-width: 500px;
+  margin: auto;
+}
+
+.settingsModal__wrapper {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
   left: 0;
-  width: calc(100vw - 2 * var(--main-padding));
-  max-width: 400px;
-  bottom: 3.5rem;
-  overflow: auto;
   z-index: 10;
+  overflow: auto;
+  padding: var(--main-padding);
+  background: var(--action-bg-color);
 }
 
-.settingsModal__button {
-  border: none;
-  border-radius: 0.5rem;
-  padding: 0.4em 0.8em;
-  font-size: 1.2rem;
-  font-family: inherit;
-  color: white;
-  background: var(--action-color);
-  cursor: pointer;
+.settingsModal__title {
+  margin: 1rem 0 3rem;
 }
 
-.settingsModal__button:hover {
-  background: var(--action-hover-color);
-}
-
-.settingsModal__saved {
-  display: inline-block;
-  color: var(--action-color);
-  margin-left: 0.5rem;
+.settingsModal__close {
+  position: absolute;
+  right: var(--main-padding);
+  top: var(--main-padding);
 }
 </style>

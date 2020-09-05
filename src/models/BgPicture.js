@@ -1,6 +1,6 @@
-import { storage } from "./Settings";
 import Unsplash from "unsplash-js";
 import { toJson } from "unsplash-js/lib/unsplash";
+import StorageData from "./storage/StorageData";
 
 /** @link https://unsplash.com/documentation#supported-parameters */
 const FORMAT_SETTINGS = {
@@ -12,14 +12,15 @@ const FORMAT_SETTINGS = {
   fit: "crop",
   dpr: "1"
 };
-
 /** @link https://unsplash.com/documentation#get-a-random-photo */
 const PHOTO_CATEGORY_PARAMS = {
   query: "landscape",
   orientation: "landscape"
 };
-
+/** @type {number} */
 const REFRESH_INTERVAL = 30;
+/** @type {string} */
+const STORAGE_KEY = "bgPicture";
 
 class BgPicture {
   constructor() {
@@ -31,52 +32,60 @@ class BgPicture {
           accessKey: this._apiKey
         })
       : null;
+    /** @type {number} @private */
+    this._updated = 1;
   }
 
   /**
-   * @returns {boolean}
+   * Cache
+   * @returns {Promise<string, string>} Last downloaded pic url
    */
-  isSetCorrectly() {
-    return this._unsplash !== null;
-  }
-
-  /**
-   * @returns {string} Last downloaded image
-   */
-  getLastImage() {
-    return this._getLastPic();
+  async getLastPic() {
+    try {
+      const pic = await StorageData.get(STORAGE_KEY);
+      this._updated = pic.updated;
+      return this._blob2url(pic.data);
+    } catch (err) {
+      return Promise.reject("");
+    }
   }
 
   /**
    * @returns {Promise<String, String>} Last pic url if rejected
    */
-  getImage() {
-    return new Promise((resolve, reject) => {
-      if (this._shouldUpdate()) {
-        this._unsplash.photos
-          .getRandomPhoto(PHOTO_CATEGORY_PARAMS)
-          .then(toJson)
-          .then(json => {
-            const url = json.urls.raw;
-            if (url) {
-              this._preloadImage(this._formatPic(url))
-                .then(formattedPic => {
-                  this._saveNewPic(formattedPic);
-                  resolve(formattedPic);
-                })
-                .catch(err => {
-                  console.error(err);
-                  reject(this._getLastPic());
-                });
-            }
-          })
-          .catch(() => {
-            reject(this._getLastPic());
-          });
-      } else {
-        resolve(this._getLastPic());
+  async getImage() {
+    let lastPic;
+    try {
+      lastPic = await this.getLastPic();
+    } catch (fallback) {
+      lastPic = fallback;
+    }
+
+    if (this._unsplash !== null && this._shouldUpdate()) {
+      let url;
+      try {
+        const uResponse = await this._unsplash.photos.getRandomPhoto(
+          PHOTO_CATEGORY_PARAMS
+        );
+        const json = await toJson(uResponse);
+        url = json.urls.raw;
+      } catch (err) {
+        throw new Error(lastPic);
       }
-    });
+
+      if (url) {
+        try {
+          const formattedPic = await this._preloadImage(this._formatPic(url));
+          await this._saveNewPic(formattedPic);
+          return this._blob2url(formattedPic);
+        } catch (err) {
+          console.error(err);
+          throw new Error(lastPic);
+        }
+      }
+    } else {
+      return lastPic;
+    }
   }
 
   /**
@@ -88,31 +97,18 @@ class BgPicture {
   }
 
   /**
-   * @returns {boolean} Should the picture be updated?
+   * @returns {boolean} Should the picture be _updated?
    * @private
    */
   _shouldUpdate() {
-    const timestamp =
-      localStorage.getItem(storage.unsplash.updateTimestamp.key) || 1;
-
-    if (timestamp) {
-      const t = Number(timestamp) + REFRESH_INTERVAL * 60 * 1000;
+    if (this._updated) {
+      const t = this._updated + REFRESH_INTERVAL * 60 * 1000;
       if (Date.now() >= t) {
         return true;
       }
     }
 
     return false;
-  }
-
-  /**
-   * Cache
-   * @returns {string} Last downloaded pic url
-   * @private
-   */
-  _getLastPic() {
-    const pic = localStorage.getItem(storage.unsplash.picture.key);
-    return !pic ? "" : pic;
   }
 
   /**
@@ -127,34 +123,30 @@ class BgPicture {
   }
 
   /**
-   * @param {string} picUrl Raw url
+   * @param {Blob} picture Raw url
+   * @returns {Promise<void, string>}
    * @private
    */
-  _saveNewPic(picUrl) {
-    localStorage.setItem(storage.unsplash.picture.key, picUrl);
-    localStorage.setItem(
-      storage.unsplash.updateTimestamp.key,
-      String(Date.now())
-    );
+  _saveNewPic(picture) {
+    return StorageData.put(STORAGE_KEY, picture);
+  }
+
+  /**
+   * @param {Blob} blob
+   * @returns {string}
+   * @private
+   */
+  _blob2url(blob) {
+    return URL.createObjectURL(blob);
   }
 
   /**
    * @param {string} imgUrl
-   * @returns {Promise<string,error>}
+   * @returns {Promise<Blob>}
    * @private
    */
   _preloadImage(imgUrl) {
-    return fetch(imgUrl)
-      .then(response => response.blob())
-      .then(
-        blob =>
-          new Promise((resolve, reject) => {
-            const reader = new FileReader();
-            reader.addEventListener("load", () => resolve(reader.result));
-            reader.addEventListener("error", reject);
-            reader.readAsDataURL(blob);
-          })
-      );
+    return fetch(imgUrl).then(response => response.blob());
   }
 }
 

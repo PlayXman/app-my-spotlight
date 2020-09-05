@@ -1,61 +1,82 @@
-import { storage } from "./Settings";
-import { toJson } from "unsplash-js/lib/unsplash";
+import StorageData from "./storage/StorageData";
 
+/** @type {string} */
 const API_URL = "https://api.openweathermap.org/data/2.5/weather";
+/** @type {number} */
 const INTERVAL = 10 * 60 * 1000;
+/** @type {string} */
+const STORAGE_KEY = "weather";
 
 class Weather {
   constructor() {
-    this.apiKey = this._getApiKey();
+    /** @type {string} */
+    this._apiKey = this._getApiKey();
+    /** @type {number} */
+    this._updated = 0;
   }
 
+  /**
+   * @returns {boolean}
+   */
   isSet() {
-    return this.apiKey.length > 0;
+    return this._apiKey.length > 0;
   }
 
-  getLastWeather() {
-    return Number(
-      localStorage.getItem(storage.weather.weather.key) || -Infinity
-    );
-  }
+  /**
+   * @returns {Promise<number, void>}
+   */
+  async getTemperature() {
+    let lastTemperature;
+    try {
+      lastTemperature = await this._getLastWeather();
+    } catch (err) {
+      lastTemperature = err;
+    }
 
-  getTemperature() {
-    return new Promise((resolve, reject) => {
-      if (this._shouldUpdate()) {
-        this._getLocation().then(location => {
-          const params = new URLSearchParams({
-            appid: this.apiKey,
-            lat: location.lat,
-            lon: location.lon
-          });
+    if (this._shouldUpdate()) {
+      const location = await this._getLocation();
+      const params = new URLSearchParams({
+        appid: this._apiKey,
+        lat: location.lat,
+        lon: location.lon
+      });
 
-          fetch(`${API_URL}?${params.toString()}`, {
-            method: "GET"
-          })
-            .then(toJson)
-            .then(json => {
-              const temperature = this._kelvinToCelsius(json.main.temp);
-              localStorage.setItem(
-                storage.weather.updateTimestamp.key,
-                String(Date.now())
-              );
-              localStorage.setItem(
-                storage.weather.weather.key,
-                String(temperature)
-              );
-              resolve(temperature);
-            })
-            .catch(err => {
-              console.error(err);
-              reject();
-            });
-        });
-      } else {
-        resolve(this.getLastWeather());
+      const response = await fetch(`${API_URL}?${params.toString()}`, {
+        method: "GET"
+      });
+      const json = await response.json();
+      const temperature = this._kelvinToCelsius(json.main.temp);
+
+      try {
+        await StorageData.put(STORAGE_KEY, temperature);
+        return temperature;
+      } catch (err) {
+        console.error(err);
+        throw new Error();
       }
-    });
+    } else {
+      return lastTemperature;
+    }
   }
 
+  /**
+   * @returns {Promise<number, number>}
+   * @private
+   */
+  async _getLastWeather() {
+    try {
+      const tempData = await StorageData.get(STORAGE_KEY);
+      this._updated = tempData.updated;
+      return tempData.data;
+    } catch (err) {
+      return Promise.reject(-Infinity);
+    }
+  }
+
+  /**
+   * @returns {string}
+   * @private
+   */
   _getApiKey() {
     return process.env.VUE_APP_OPENWEATHERMAP_API_KEY || "";
   }
@@ -69,14 +90,20 @@ class Weather {
     return Math.round(temp - 273.15);
   }
 
+  /**
+   * @returns {boolean}
+   * @private
+   */
   _shouldUpdate() {
-    const u = localStorage.getItem(storage.weather.updateTimestamp.key);
+    if (!this._updated) return true;
 
-    if (!u) return true;
-
-    return Number(u) + INTERVAL < Date.now();
+    return this._updated + INTERVAL < Date.now();
   }
 
+  /**
+   * @returns {Promise<{lat: string, lon: string}>}
+   * @private
+   */
   _getLocation() {
     return new Promise((resolve, reject) => {
       const location = {
