@@ -3,19 +3,22 @@
     <div class="settingsInput__title">
       {{ label }}
     </div>
-    <input
-      class="settingsInputSwitch__input"
-      type="checkbox"
-      value="1"
-      :id="id"
-      :disabled="disabled"
-      :checked="isChecked"
-      v-on:change="handleChange"
-    />
-    <label class="settingsInputSwitch__label" :for="id">
-      <i class="settingsInputSwitch__newInput"></i>
-      {{ inputLabel }}
-    </label>
+    <div class="settingsInput__content">
+      <input
+        class="settingsInputSwitch__input"
+        type="checkbox"
+        value="1"
+        :id="id"
+        :name="id"
+        :disabled="disabled"
+        :checked="isChecked"
+        v-on:change="handleChange"
+      />
+      <label class="settingsInputSwitch__label" :for="id">
+        <i class="settingsInputSwitch__newInput"></i>
+        {{ inputLabel }}
+      </label>
+    </div>
   </SettingsInputBase>
 </template>
 
@@ -41,10 +44,6 @@ export default {
     disabled: {
       type: Boolean,
       default: false
-    },
-    onchange: {
-      type: Function,
-      required: true
     }
   },
   data() {
@@ -63,8 +62,11 @@ export default {
      */
     handleChange(e) {
       this.isChecked = e.target.checked;
-      this.onchange(this.isChecked);
+      e.target.form.dispatchEvent(new Event("submit"));
     }
+  },
+  updated() {
+    this.isChecked = this.checked;
   }
 };
 </script>

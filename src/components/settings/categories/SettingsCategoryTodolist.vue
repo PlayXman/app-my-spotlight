@@ -1,12 +1,11 @@
 <template>
-  <SettingsSection title="Todo list">
+  <SettingsSection title="Todo list" :onsubmit="handleSubmit">
     <SettingsInputText
-      id="todolistApiKey"
+      :id="id"
       type="text"
       label="Your personal api token"
       :value="value"
       :disabled="loading"
-      :onchange="handleChange"
     />
     <SettingsSectionHint>
       Go to
@@ -34,15 +33,20 @@ export default {
       loading: true
     };
   },
+  computed: {
+    id: function() {
+      return "todolistApiKey";
+    }
+  },
   methods: {
     /**
-     * @param {string} val
+     * @param {FormData} data
      */
-    handleChange(val) {
+    handleSubmit(data) {
       this.loading = true;
       const oldVal = this.value;
-      this.value = val;
-      TodolistSettings.handleApiKeyChange(val)
+      this.value = data.get(this.id);
+      TodolistSettings.handleApiKeyChange(this.value)
         .catch(() => {
           this.value = oldVal;
         })

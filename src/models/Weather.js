@@ -1,4 +1,5 @@
 import StorageData from "./storage/StorageData";
+import WeatherSettings from "./settings/WeatherSettings";
 
 /** @type {string} */
 const API_URL = "https://api.openweathermap.org/data/2.5/weather";
@@ -16,21 +17,27 @@ class Weather {
   }
 
   /**
-   * @returns {boolean}
+   * @returns {Promise<boolean>}
    */
-  isSet() {
-    return this._apiKey.length > 0;
+  async isEnabled() {
+    const settings = await WeatherSettings.getSettings();
+
+    if (settings) {
+      return this._apiKey.length > 0 && settings.enabled;
+    } else {
+      return false;
+    }
   }
 
   /**
-   * @returns {Promise<number, void>}
+   * @returns {Promise<{temp: Number, unit: String}>} Temperature in celsius or fahrenheit
    */
   async getTemperature() {
-    let lastTemperature;
+    let kelvins;
     try {
-      lastTemperature = await this._getLastWeather();
+      kelvins = await this._getLastWeather();
     } catch (err) {
-      lastTemperature = err;
+      kelvins = err;
     }
 
     if (this._shouldUpdate()) {
@@ -45,18 +52,18 @@ class Weather {
         method: "GET"
       });
       const json = await response.json();
-      const temperature = this._kelvinToCelsius(json.main.temp);
+      const temperature = json.main.temp;
 
       try {
         await StorageData.put(STORAGE_KEY, temperature);
-        return temperature;
+        kelvins = temperature;
       } catch (err) {
         console.error(err);
         throw new Error();
       }
-    } else {
-      return lastTemperature;
     }
+
+    return await this._convertTemperature(kelvins);
   }
 
   /**
@@ -82,12 +89,43 @@ class Weather {
   }
 
   /**
+   * @param {number} kelvins
+   * @returns {Promise<{temp: Number, unit: String}>} Temperature in celsius or fahrenheit
+   * @private
+   */
+  async _convertTemperature(kelvins) {
+    const settings = await WeatherSettings.getSettings();
+    const obj = {
+      temp: 0,
+      unit: "C"
+    };
+
+    if (settings && settings.unit === "f") {
+      obj.temp = this._kelvinToFahrenheit(kelvins);
+      obj.unit = "F";
+    } else {
+      obj.temp = this._kelvinToCelsius(kelvins);
+    }
+
+    return obj;
+  }
+
+  /**
    * @param {number} temp
    * @returns {number}
    * @private
    */
   _kelvinToCelsius(temp) {
     return Math.round(temp - 273.15);
+  }
+
+  /**
+   * @param {number} temp
+   * @returns {number}
+   * @private
+   */
+  _kelvinToFahrenheit(temp) {
+    return Math.round(temp * (9 / 5) - 459.67);
   }
 
   /**
