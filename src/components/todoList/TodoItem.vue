@@ -46,8 +46,8 @@ export default {
   opacity: 0.3;
   border: 1px solid var(--font-color);
   border-radius: 50%;
-  width: 0.7em;
-  height: 0.7em;
+  width: 0.75em;
+  height: 0.75em;
 }
 
 .todoItem__date {

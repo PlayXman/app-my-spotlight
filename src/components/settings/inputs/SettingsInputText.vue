@@ -9,6 +9,7 @@
         :id="id"
         :name="id"
         :type="type"
+        :placeholder="placeholder"
         :disabled="disabled"
         :value="value"
         v-on:keypress="handleKeypress"
@@ -44,6 +45,9 @@ export default {
     disabled: {
       type: Boolean,
       default: false
+    },
+    placeholder: {
+      type: String
     }
   },
   methods: {
@@ -51,7 +55,7 @@ export default {
      * @param {Event} e
      */
     handleFocusout: function(e) {
-      e.target.form.dispatchEvent(new Event("submit"));
+      e.target.form.dispatchEvent(new Event("submit", { cancelable: true }));
     },
     /**
      * @param {Event} e
@@ -70,13 +74,19 @@ export default {
 .settingsInputText__input {
   display: block;
   width: 100%;
-  border: 1px solid var(--font-dark-color);
+  border: none;
   border-radius: 0.5rem;
   padding: 0.5em;
   font-size: inherit;
-  font-family: inherit;
+  font-family: monospace;
   color: var(--font-dark-color);
   background-color: #fff;
+}
+
+.settingsInputText__input::placeholder {
+  color: #cacaca;
+  font-style: italic;
+  opacity: 1;
 }
 
 .settingsInputText__input:focus {
@@ -85,6 +95,5 @@ export default {
 
 .settingsInputText__input:disabled {
   cursor: progress;
-  border-color: var(--font-dark-color);
 }
 </style>

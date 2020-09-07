@@ -62,7 +62,7 @@ export default {
      */
     handleChange(e) {
       this.isChecked = e.target.checked;
-      e.target.form.dispatchEvent(new Event("submit"));
+      e.target.form.dispatchEvent(new Event("submit", { cancelable: true }));
     }
   },
   updated() {
@@ -88,7 +88,7 @@ export default {
   height: 1.25em;
   background: #fff;
   border-radius: 999px;
-  border: 1px solid var(--font-dark-color);
+  border: none;
   top: -0.125em;
   left: 0;
 }
