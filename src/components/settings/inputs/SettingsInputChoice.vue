@@ -1,27 +1,29 @@
 <template>
-  <SettingsInputBase>
+  <SettingsInputBase class="settingsInputChoice">
     <div class="settingsInput__title">
       {{ label }}
     </div>
-    <div
-      class="settingsInputChoice__choice"
-      v-for="choice in choices"
-      :key="choice.id"
-    >
-      <input
-        class="settingsInputChoice__input"
-        type="radio"
-        :id="choice.id"
-        :name="id"
-        :value="choice.value"
-        :disabled="disabled"
-        :checked="isChecked(choice.value)"
-        v-on:change="handleChange"
-      />
-      <label class="settingsInputChoice__label" :for="choice.id">
-        <i class="settingsInputChoice__newInput"></i>
-        {{ choice.label }}
-      </label>
+    <div class="settingsInput__content">
+      <div
+        class="settingsInputChoice__choice"
+        v-for="choice in choices"
+        :key="choice.id"
+      >
+        <input
+          class="settingsInputChoice__input"
+          type="radio"
+          :id="choice.id"
+          :name="id"
+          :value="choice.value"
+          :disabled="disabled"
+          :checked="isChecked(choice.value)"
+          v-on:change="handleChange"
+        />
+        <label class="settingsInputChoice__label" :for="choice.id">
+          <i class="settingsInputChoice__newInput"></i>
+          {{ choice.label }}
+        </label>
+      </div>
     </div>
   </SettingsInputBase>
 </template>
@@ -56,10 +58,6 @@ export default {
     disabled: {
       type: Boolean,
       default: false
-    },
-    onchange: {
-      type: Function,
-      required: true
     }
   },
   computed: {
@@ -89,13 +87,17 @@ export default {
      * @param {Event} e
      */
     handleChange(e) {
-      this.onchange(e.target.value);
+      e.target.form.dispatchEvent(new Event("submit"));
     }
   }
 };
 </script>
 
 <style>
+.settingsInputChoice {
+  align-items: flex-start;
+}
+
 .settingsInputChoice__choice:not(:last-child) {
   margin-bottom: 0.5rem;
 }

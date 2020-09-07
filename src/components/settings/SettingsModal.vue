@@ -3,6 +3,7 @@
     <Box class="settingsModal" bg>
       <h2 class="settingsModal__title">Settings</h2>
       <div>
+        <SettingsCategoryWeather />
         <SettingsCategoryTodolist />
       </div>
     </Box>
@@ -17,10 +18,12 @@ import Box from "../Box";
 import LayoutButton from "../LayoutButton";
 import CloseIcon from "../icons/CloseIcon";
 import SettingsCategoryTodolist from "./categories/SettingsCategoryTodolist";
+import SettingsCategoryWeather from "@/components/settings/categories/SettingsCategoryWeather";
 
 export default {
   name: "SettingsModal",
   components: {
+    SettingsCategoryWeather,
     SettingsCategoryTodolist,
     CloseIcon,
     LayoutButton,
@@ -58,7 +61,7 @@ export default {
 }
 
 .settingsModal {
-  max-width: 500px;
+  max-width: 550px;
   margin: auto;
 }
 

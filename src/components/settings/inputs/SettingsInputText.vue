@@ -3,15 +3,18 @@
     <label class="settingsInput__title" :for="id">
       {{ label }}
     </label>
-    <input
-      class="settingsInputText__input"
-      :id="id"
-      :type="type"
-      :disabled="disabled"
-      :value="value"
-      v-on:keypress="handleKeypress"
-      v-on:focusout="handleFocusout"
-    />
+    <div class="settingsInput__content">
+      <input
+        class="settingsInputText__input"
+        :id="id"
+        :name="id"
+        :type="type"
+        :disabled="disabled"
+        :value="value"
+        v-on:keypress="handleKeypress"
+        v-on:focusout="handleFocusout"
+      />
+    </div>
   </SettingsInputBase>
 </template>
 
@@ -41,10 +44,6 @@ export default {
     disabled: {
       type: Boolean,
       default: false
-    },
-    onchange: {
-      type: Function,
-      required: true
     }
   },
   methods: {
@@ -52,13 +51,14 @@ export default {
      * @param {Event} e
      */
     handleFocusout: function(e) {
-      this.onchange(e.target.value);
+      e.target.form.dispatchEvent(new Event("submit"));
     },
     /**
      * @param {Event} e
      */
     handleKeypress: function(e) {
       if (e.key === "Enter") {
+        e.preventDefault();
         e.target.blur();
       }
     }
@@ -74,6 +74,7 @@ export default {
   border-radius: 0.5rem;
   padding: 0.5em;
   font-size: inherit;
+  font-family: inherit;
   color: var(--font-dark-color);
   background-color: #fff;
 }

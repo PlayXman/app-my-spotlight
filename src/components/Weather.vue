@@ -1,11 +1,12 @@
 <template>
   <div v-if="temp > -Infinity" class="weather">
-    {{ temp }}°<span class="weather__unit">C</span>
+    {{ temp }}°<span class="weather__unit">{{ unit }}</span>
   </div>
 </template>
 
 <script>
 import Weather from "../models/Weather";
+import WeatherSettings from "../models/settings/WeatherSettings";
 
 const weather = new Weather();
 
@@ -13,15 +14,30 @@ export default {
   name: "Weather",
   data() {
     return {
-      temp: -Infinity
+      temp: -Infinity,
+      unit: "C"
     };
   },
-  mounted() {
-    if (weather.isSet()) {
-      weather.getTemperature().then(temp => {
-        this.temp = temp;
+  methods: {
+    init() {
+      weather.isEnabled().then(enabled => {
+        if (enabled) {
+          weather.getTemperature().then(temp => {
+            this.temp = temp.temp;
+            this.unit = temp.unit;
+          });
+        } else {
+          this.temp = -Infinity;
+        }
       });
     }
+  },
+  mounted() {
+    this.init();
+    WeatherSettings.observeUpdate(this.init);
+  },
+  destroyed() {
+    WeatherSettings.removeObserver(this.init);
   }
 };
 </script>

@@ -1,7 +1,10 @@
 <template>
   <section class="settingsSection">
     <h4 class="settingsSection__title" v-if="title">{{ title }}</h4>
-    <slot />
+    <form v-if="onsubmit" v-on:submit="handleSubmit">
+      <slot />
+    </form>
+    <slot v-else />
   </section>
 </template>
 
@@ -11,6 +14,21 @@ export default {
   props: {
     title: {
       type: String
+    },
+    onsubmit: {
+      type: Function
+    }
+  },
+  methods: {
+    /**
+     * @param {Event} e
+     * @returns {boolean}
+     */
+    handleSubmit(e) {
+      e.preventDefault();
+      const data = new FormData(e.target);
+      this.onsubmit(data);
+      return false;
     }
   }
 };

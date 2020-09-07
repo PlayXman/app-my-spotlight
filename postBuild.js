@@ -26,8 +26,8 @@ class PostBuild {
 
       await fsp.writeFile(manifestPath, JSON.stringify(manifest), "utf8");
       console.log("...Manifest was modified.");
-    } catch (e) {
-      console.log(e);
+    } catch (err) {
+      console.log(err);
     }
   }
 
@@ -59,8 +59,8 @@ class PostBuild {
       archive.pipe(output);
       archive.directory(DIST_PATH + "/", false);
       archive.finalize();
-    } catch (e) {
-      console.log(e);
+    } catch (err) {
+      console.log(err);
     }
   }
 }
