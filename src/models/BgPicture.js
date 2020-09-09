@@ -1,6 +1,7 @@
 import Unsplash from "unsplash-js";
 import { toJson } from "unsplash-js/lib/unsplash";
 import StorageData from "./storage/StorageData";
+import BackgroundSettings from "./settings/BackgroundSettings";
 
 /** @link https://unsplash.com/documentation#supported-parameters */
 const FORMAT_SETTINGS = {
@@ -54,6 +55,7 @@ class BgPicture {
    * @returns {Promise<String, String>} Last pic url if rejected
    */
   async getImage() {
+    //set cached pic
     let lastPic;
     try {
       lastPic = await this.getLastPic();
@@ -62,17 +64,21 @@ class BgPicture {
     }
 
     if (this._unsplash !== null && this._shouldUpdate()) {
+      //fetch new pic
       let url;
       try {
-        const uResponse = await this._unsplash.photos.getRandomPhoto(
-          PHOTO_CATEGORY_PARAMS
-        );
+        const keys = await BackgroundSettings.getSearchKeys();
+        const params = keys
+          ? { ...PHOTO_CATEGORY_PARAMS, query: keys }
+          : PHOTO_CATEGORY_PARAMS;
+        const uResponse = await this._unsplash.photos.getRandomPhoto(params);
         const json = await toJson(uResponse);
         url = json.urls.raw;
       } catch (err) {
         throw new Error(lastPic);
       }
 
+      //save and return new pic
       if (url) {
         try {
           const formattedPic = await this._preloadImage(this._formatPic(url));
