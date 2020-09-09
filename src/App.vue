@@ -7,18 +7,7 @@
           <Weather />
         </Cell>
         <Cell>
-          <LayoutButton link="https://mail.google.com/mail/u/0/">
-            <GmailIcon />
-          </LayoutButton>
-          <LayoutButton link="https://calendar.google.com/calendar/r">
-            <CalendarIcon />
-          </LayoutButton>
-          <LayoutButton link="https://drive.google.com/drive/">
-            <DriveIcon />
-          </LayoutButton>
-          <LayoutButton link="https://keep.google.com">
-            <KeepIcon />
-          </LayoutButton>
+          <QuickLinks />
         </Cell>
       </Row>
       <Row align="middle">
@@ -39,17 +28,13 @@
 <script>
 import Time from "./components/Time";
 import Background from "./components/Background";
-import LayoutButton from "./components/LayoutButton";
-import KeepIcon from "./components/icons/KeepIcon";
-import DriveIcon from "./components/icons/DriveIcon";
-import GmailIcon from "./components/icons/GmailIcon";
-import CalendarIcon from "./components/icons/CalendarIcon";
 import Weather from "./components/Weather";
 import Container from "./components/layout/Container";
 import Row from "./components/layout/Row";
 import Cell from "./components/layout/Cell";
 import TodoList from "./components/todoList/TodoList";
 import Settings from "./components/settings/Settings";
+import QuickLinks from "./components/QuickLinks";
 import Storage from "./models/storage/Storage";
 import { DATA_STORE_NAME } from "./models/storage/StorageData";
 import { SETTINGS_STORE_NAME } from "./models/settings/Settings";
@@ -62,17 +47,13 @@ Storage()
 export default {
   name: "App",
   components: {
+    QuickLinks,
     Settings,
     TodoList,
     Cell,
     Container,
     Row,
     Weather,
-    CalendarIcon,
-    GmailIcon,
-    DriveIcon,
-    KeepIcon,
-    LayoutButton,
     Background,
     Time
   }

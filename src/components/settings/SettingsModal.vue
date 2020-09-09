@@ -1,12 +1,15 @@
 <template>
   <div class="settingsModal__wrapper">
-    <Box class="settingsModal" bg>
-      <h2 class="settingsModal__title">Settings</h2>
-      <div>
-        <SettingsCategoryWeather />
-        <SettingsCategoryTodolist />
-      </div>
-    </Box>
+    <div class="settingsModal__content">
+      <Box class="settingsModal" bg>
+        <h2 class="settingsModal__title">Settings</h2>
+        <div>
+          <SettingsCategoryWeather />
+          <SettingsCategoryQuickLinks />
+          <SettingsCategoryTodolist />
+        </div>
+      </Box>
+    </div>
     <LayoutButton class="settingsModal__close" :on-click="handleClose">
       <CloseIcon />
     </LayoutButton>
@@ -18,11 +21,13 @@ import Box from "../Box";
 import LayoutButton from "../LayoutButton";
 import CloseIcon from "../icons/CloseIcon";
 import SettingsCategoryTodolist from "./categories/SettingsCategoryTodolist";
-import SettingsCategoryWeather from "@/components/settings/categories/SettingsCategoryWeather";
+import SettingsCategoryWeather from "./categories/SettingsCategoryWeather";
+import SettingsCategoryQuickLinks from "./categories/SettingsCategoryQuickLinks";
 
 export default {
   name: "SettingsModal",
   components: {
+    SettingsCategoryQuickLinks,
     SettingsCategoryWeather,
     SettingsCategoryTodolist,
     CloseIcon,
@@ -73,8 +78,11 @@ export default {
   left: 0;
   z-index: 10;
   overflow: auto;
-  padding: var(--main-padding);
   background: var(--action-bg-color);
+}
+
+.settingsModal__content {
+  padding: var(--main-padding);
 }
 
 .settingsModal__title {

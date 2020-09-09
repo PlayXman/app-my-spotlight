@@ -36,8 +36,8 @@ export default {
 
 <style>
 .settingsSection:not(:last-child) {
-  padding-bottom: 1rem;
-  margin-bottom: 2rem;
+  padding-bottom: 3rem;
+  margin-bottom: 4rem;
   border-bottom: 1px dashed var(--settings-second-color);
 }
 

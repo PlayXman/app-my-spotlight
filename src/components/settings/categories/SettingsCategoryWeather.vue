@@ -2,7 +2,7 @@
   <SettingsSection title="Weather" :onsubmit="handleSubmit">
     <SettingsInputSwitch
       :id="ids.weatherOnOff"
-      label="Turn On/Off"
+      label="Turn on/off"
       :disabled="loading"
       :checked="isOn"
     />
