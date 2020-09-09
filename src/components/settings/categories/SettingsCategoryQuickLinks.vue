@@ -60,10 +60,10 @@
       placeholder="https://keep.google.com/"
     />
     <SettingsSectionHint>
-      All quick links redirect to Google services like Gmail or Drive. If you
-      want to use another services, just paste their URL into one of the text
-      fields. If you want to reset quick link's settings, just delete a URL from
-      the field and Google services will be automatically used.
+      All quick links redirect to <em>Google services</em> like Gmail or Drive.
+      If you want to use other services, just paste their URL into one of the
+      text fields. If you want to reset quick link settings, just delete a URL
+      from the field, and Google services will be automatically used.
     </SettingsSectionHint>
   </SettingsSection>
 </template>

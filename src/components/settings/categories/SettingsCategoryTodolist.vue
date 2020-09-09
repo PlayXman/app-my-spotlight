@@ -8,12 +8,12 @@
       :disabled="loading"
     />
     <SettingsSectionHint>
-      Go to
-      <a href="https://todoist.com/app/" target="_blank" rel="noopener">
-        Todoist app
-      </a>
-      and in Settings / Integrations there's "<em>API token</em>". Copy the
-      value to the field above.
+      Go to the
+      <a href="https://todoist.com/app/" target="_blank" rel="noopener"
+        >Todoist app</a
+      >
+      and in Settings / Integrations there's "API token". Copy the value to the
+      field above.
     </SettingsSectionHint>
   </SettingsSection>
 </template>

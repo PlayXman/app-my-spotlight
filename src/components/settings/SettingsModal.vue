@@ -6,6 +6,7 @@
         <div>
           <SettingsCategoryWeather />
           <SettingsCategoryQuickLinks />
+          <SettingsCategoryBackground />
           <SettingsCategoryTodolist />
         </div>
       </Box>
@@ -23,10 +24,12 @@ import CloseIcon from "../icons/CloseIcon";
 import SettingsCategoryTodolist from "./categories/SettingsCategoryTodolist";
 import SettingsCategoryWeather from "./categories/SettingsCategoryWeather";
 import SettingsCategoryQuickLinks from "./categories/SettingsCategoryQuickLinks";
+import SettingsCategoryBackground from "./categories/SettingsCategoryBackground";
 
 export default {
   name: "SettingsModal",
   components: {
+    SettingsCategoryBackground,
     SettingsCategoryQuickLinks,
     SettingsCategoryWeather,
     SettingsCategoryTodolist,
