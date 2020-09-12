@@ -1,5 +1,5 @@
 <template>
-  <div v-if="!loading">
+  <div v-if="!loading" class="quickLinks">
     <LayoutButton v-if="mail.enabled" :link="mailUrl">
       <GmailIcon />
     </LayoutButton>
@@ -87,4 +87,9 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+.quickLinks > *:not(:last-child) {
+  margin-right: 0.5rem;
+  vertical-align: middle;
+}
+</style>
