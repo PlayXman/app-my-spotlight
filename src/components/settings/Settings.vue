@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="settings">
     <LayoutButton :on-click="toggleOpen">
       <SettingsIcon />
     </LayoutButton>
@@ -33,6 +33,10 @@ export default {
 </script>
 
 <style>
+.settings {
+  display: inline-block;
+}
+
 .settings__fade-enter-active,
 .settings__fade-leave-active {
   transition: opacity 300ms;

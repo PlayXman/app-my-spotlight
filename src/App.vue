@@ -16,6 +16,7 @@
       <Row align="bottom">
         <Cell>
           <Settings />
+          <BackgroundLocality />
         </Cell>
         <Cell>
           <TodoList />
@@ -27,7 +28,7 @@
 
 <script>
 import Time from "./components/Time";
-import Background from "./components/Background";
+import Background from "./components/background/Background";
 import Weather from "./components/Weather";
 import Container from "./components/layout/Container";
 import Row from "./components/layout/Row";
@@ -38,6 +39,7 @@ import QuickLinks from "./components/QuickLinks";
 import Storage from "./models/storage/Storage";
 import { DATA_STORE_NAME } from "./models/storage/StorageData";
 import { SETTINGS_STORE_NAME } from "./models/settings/Settings";
+import BackgroundLocality from "./components/background/BackgroundLocality";
 
 //init storage
 Storage()
@@ -47,6 +49,7 @@ Storage()
 export default {
   name: "App",
   components: {
+    BackgroundLocality,
     QuickLinks,
     Settings,
     TodoList,
@@ -110,11 +113,6 @@ body {
   width: 100vw;
   height: 100vh;
   color: var(--font-color);
-}
-
-@media (min-width: 32em) {
-  :root {
-    --main-padding: 1.8rem;
-  }
+  background: #e5e8ea;
 }
 </style>

@@ -3,9 +3,9 @@
 </template>
 
 <script>
-import BgPicture from "../models/BgPicture";
+import Bg from "../../models/bg/Bg";
 
-const bgPicture = new BgPicture();
+const bgPicture = new Bg();
 
 export default {
   name: "Background",
@@ -15,15 +15,9 @@ export default {
     };
   },
   mounted() {
-    bgPicture
-      .getLastPic()
-      .then(url => {
-        this.src = url;
-      })
-      .catch(url => {
-        this.src = url;
-      });
-    bgPicture.getImage();
+    bgPicture.getImage().then(picture => {
+      this.src = picture.url;
+    });
   }
 };
 </script>
