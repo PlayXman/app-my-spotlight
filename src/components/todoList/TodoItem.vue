@@ -1,6 +1,7 @@
 <template>
   <li class="todoItem">
-    {{ text }} <span class="todoItem__date" v-if="date">{{ date }}</span>
+    <span v-html="text"></span>
+    <span class="todoItem__date" v-if="date">{{ date }}</span>
   </li>
 </template>
 

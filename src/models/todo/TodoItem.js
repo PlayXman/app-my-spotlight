@@ -20,26 +20,13 @@ class TodoItem {
    */
   get text() {
     let text = this._text;
-    text = text.replace(/\[([^\]]+)\]\(https?:\/\/[^)]+\)/g, "$1");
-
-    let m;
-    let lastIndex = 0;
-    let newText = "";
-    const regex = /https?:\/\/([^\s]+)/g;
-    while ((m = regex.exec(text)) !== null) {
-      if (m.index === regex.lastIndex) {
-        regex.lastIndex++;
-      }
-
-      newText += text.slice(lastIndex, m.index);
-      newText += m[1].substr(0, 15) + "...";
-
-      lastIndex = regex.lastIndex;
-    }
-
-    if (newText.length) {
-      text = newText;
-    }
+    text = this._formatUrlMarkdown(text);
+    text = text.replace(/\*\*([^\s][^*]+[^\s])\*\*/g, "<strong>$1</strong>");
+    text = text.replace(/__([^\s][^_]+[^\s])__/g, "<strong>$1</strong>");
+    text = text.replace(/\*([^\s][^*]+[^\s])\*/g, "<em>$1</em>");
+    text = text.replace(/_([^\s][^_]+[^\s])_/g, "<em>$1</em>");
+    text = text.replace(/```([^\s][^`]+[^\s])```/g, "<code>$1</code>");
+    text = text.replace(/`([^\s][^`]+[^\s])`/g, "<code>$1</code>");
 
     return text;
   }
@@ -83,6 +70,36 @@ class TodoItem {
     const date = new Date(this._dueDate);
 
     return now >= date;
+  }
+
+  /**
+   * @param {string} text
+   * @returns {string}
+   * @private
+   */
+  _formatUrlMarkdown(text) {
+    let result = text.replace(/\[([^\]]+)\]\(https?:\/\/[^)]+\)/g, "$1");
+
+    let m;
+    let lastIndex = 0;
+    let newText = "";
+    const regex = /https?:\/\/([^\s]+)/g;
+    while ((m = regex.exec(result)) !== null) {
+      if (m.index === regex.lastIndex) {
+        regex.lastIndex++;
+      }
+
+      newText += result.slice(lastIndex, m.index);
+      newText += m[1].substr(0, 15) + "...";
+
+      lastIndex = regex.lastIndex;
+    }
+
+    if (newText.length) {
+      result = newText;
+    }
+
+    return result;
   }
 }
 
