@@ -30,8 +30,4 @@ export default {
   left: 0;
   font-size: 0.75rem;
 }
-
-.settingsSectionHint a {
-  color: inherit;
-}
 </style>
