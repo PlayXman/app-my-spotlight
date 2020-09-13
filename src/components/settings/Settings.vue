@@ -37,6 +37,10 @@ export default {
   display: inline-block;
 }
 
+.settings a {
+  color: inherit;
+}
+
 .settings__fade-enter-active,
 .settings__fade-leave-active {
   transition: opacity 300ms;
