@@ -1,19 +1,36 @@
 <template>
   <SettingsSection title="Todo list" :onsubmit="handleSubmit">
     <SettingsInputText
-      :id="id"
+      :id="ids.apiKey"
       type="text"
       label="Your personal api token"
-      :value="value"
+      :value="apiKey"
       :disabled="loading"
     />
     <SettingsSectionHint>
       Go to the
-      <a href="https://todoist.com/app/" target="_blank" rel="noopener"
-        >Todoist app</a
-      >
+      <a href="https://todoist.com/app/" target="_blank" rel="noopener">
+        Todoist app
+      </a>
       and in Settings / Integrations there's "API token". Copy the value to the
       field above.
+    </SettingsSectionHint>
+
+    <SettingsInputText
+      :id="ids.filters"
+      type="text"
+      label="Show items just from the following projects"
+      placeholder="Inbox; Project A"
+      :value="filters"
+      :disabled="loading"
+    />
+    <SettingsSectionHint>
+      You can specify which project items should appear. Fx. to filter only
+      "Inbox" and "House reconstruction" type
+      <code>Inbox; House reconstruction</code>.
+    </SettingsSectionHint>
+    <SettingsSectionHint>
+      By default, <strong>all</strong> items are displayed.
     </SettingsSectionHint>
   </SettingsSection>
 </template>
@@ -29,13 +46,17 @@ export default {
   components: { SettingsSection, SettingsSectionHint, SettingsInputText },
   data() {
     return {
-      value: "",
+      apiKey: "",
+      filters: "",
       loading: true
     };
   },
   computed: {
-    id: function() {
-      return "todolistApiKey";
+    ids: function() {
+      return {
+        apiKey: "todolistApiKey",
+        filters: "todolistFilter"
+      };
     }
   },
   methods: {
@@ -44,11 +65,14 @@ export default {
      */
     handleSubmit(data) {
       this.loading = true;
-      const oldVal = this.value;
-      this.value = data.get(this.id);
-      TodolistSettings.handleApiKeyChange(this.value)
+      const oldApiKey = this.apiKey;
+      const oldFilters = this.filters;
+      this.apiKey = data.get(this.ids.apiKey);
+      this.filters = data.get(this.ids.filters);
+      TodolistSettings.handleDataChange(this.apiKey, this.filters)
         .catch(() => {
-          this.value = oldVal;
+          this.apiKey = oldApiKey;
+          this.filters = oldFilters;
         })
         .finally(() => {
           this.loading = false;
@@ -56,9 +80,12 @@ export default {
     }
   },
   mounted() {
-    TodolistSettings.getApiKey()
-      .then(key => {
-        this.value = key;
+    TodolistSettings.getSettings()
+      .then(data => {
+        if (data) {
+          this.apiKey = data.apiKey;
+          this.filters = data.filters;
+        }
       })
       .finally(() => {
         this.loading = false;

@@ -15,11 +15,11 @@
 
 <script>
 import TodoItem from "./TodoItem";
-import Todoist from "../../models/todo/Todoist";
+import TodoList from "../../models/todo/TodoList";
 import Box from "../Box";
 import TodolistSettings from "../../models/settings/TodolistSettings";
 
-const todoist = new Todoist();
+const todoList = new TodoList();
 
 export default {
   name: "TodoList",
@@ -33,14 +33,14 @@ export default {
   },
   methods: {
     init: function() {
-      todoist.isActive().then(result => {
+      todoList.isActive().then(result => {
         this.show = result;
 
         if (result) {
-          todoist
+          todoList
             .getItems()
             .then(items => {
-              this.items = items.filter(item => item.isDue());
+              this.items = items;
             })
             .finally(() => {
               this.loading = false;

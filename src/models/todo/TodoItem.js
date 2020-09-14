@@ -1,12 +1,16 @@
 class TodoItem {
-  /** @type {number} */
-  id;
-  /** @type {string} @private */
-  _text;
-  /** @type {string} */
-  createDate;
-  /** @type {string} @private */
-  _dueDate;
+  constructor() {
+    /** @type {number} */
+    this.id = 0;
+    /** @type {string} @private */
+    this._text = "";
+    /** @type {string} */
+    this.createDate = "";
+    /** @type {string} @private */
+    this._dueDate = "";
+    /** @type {number} */
+    this.projectId = 0;
+  }
 
   /**
    * @param {string} text
