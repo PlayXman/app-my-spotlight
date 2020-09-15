@@ -1,28 +1,33 @@
 import Settings from "./Settings";
 
 /** @type {string} */
-const STORE_KEY_APIKEY = "todoistApiKey";
+const STORE_KEY = "todoist";
 
 class TodolistSettings extends Settings {
   /**
-   * @returns {Promise<string>} Empty string if api key is not defined
+   * @returns {Promise<{}|null>} Null if nothing found
    */
-  static async getApiKey() {
+  static async getSettings() {
     try {
-      const apiKey = await this._loadStoredData(STORE_KEY_APIKEY);
-      return apiKey.data;
+      const settings = await this._loadStoredData(STORE_KEY);
+      return settings.data;
     } catch (err) {
-      return "";
+      return null;
     }
   }
 
   /**
-   * @param {string} value
+   * @param {string} apiKey
+   * @param {string} filters
    * @returns {Promise<void>}
    */
-  static async handleApiKeyChange(value) {
+  static async handleDataChange(apiKey, filters = "") {
     try {
-      await this._saveDataToStore(STORE_KEY_APIKEY, value);
+      const data = {
+        apiKey,
+        filters
+      };
+      await this._saveDataToStore(STORE_KEY, data);
       return Promise.resolve();
     } catch (err) {
       console.error(err);

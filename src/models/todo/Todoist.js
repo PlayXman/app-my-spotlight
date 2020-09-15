@@ -1,6 +1,7 @@
 import TodoItem from "./TodoItem";
 import StorageData from "../storage/StorageData";
 import TodolistSettings from "@/models/settings/TodolistSettings";
+import TodoProject from "@/models/todo/TodoProject";
 
 /** @type {string} */
 const API_URL = "https://api.todoist.com/sync/v8/sync";
@@ -13,6 +14,8 @@ class Todoist {
   constructor() {
     /** @type {TodoItem[]} */
     this.items = [];
+    /** @type {TodoProject[]} */
+    this.projects = [];
     /** @type {number} @private */
     this._updated = 0;
   }
@@ -25,39 +28,49 @@ class Todoist {
   }
 
   /**
-   * Shows saved items and loads a new ones.
-   * @returns {Promise<TodoItem[]>}
+   * Loads items from cache and fetches a new ones.
+   * @returns {Promise<{items: TodoItem[], projects: TodoProject[]}>}
    */
   async getItems() {
-    const cachedItems = await this._loadCachedItems();
+    await this._loadCachedItems();
 
     if (await this._shouldUpdate()) {
-      return await this._fetchAllItems();
+      await this._fetchAllItems();
     }
 
-    return cachedItems;
+    return Promise.resolve({
+      items: this.items,
+      projects: this.projects
+    });
   }
 
   /**
    * Loads items from storage.
-   * @returns {Promise<TodoItem[]>}
+   * @returns {Promise<void>}
    * @private
    */
   async _loadCachedItems() {
     try {
       const data = await StorageData.get(STORAGE_KEY);
       this._updated = data.updated;
-      this.items = data.data.map(item => {
+      this.items = data.data.items.map(item => {
         const todo = new TodoItem();
         todo.id = item.id;
         todo._text = item._text;
         todo.createDate = item.createDate;
         todo._dueDate = item._dueDate;
+        todo.projectId = item.projectId;
         return todo;
       });
-      return this.items;
+      this.projects = data.data.projects.map(project => {
+        const p = new TodoProject();
+        p.id = project.id;
+        p.name = project.name;
+        return p;
+      });
+      return Promise.resolve();
     } catch (err) {
-      return [];
+      return Promise.resolve();
     }
   }
 
@@ -80,13 +93,13 @@ class Todoist {
     const params = new URLSearchParams({
       token: await this._userToken(),
       sync_token: "*",
-      resource_types: '["items"]'
+      resource_types: '["items", "projects"]'
     });
-
     const headers = new Headers();
     headers.append("Content-Type", "application/x-www-form-urlencoded");
 
     const items = [];
+    const projects = [];
 
     try {
       const response = await fetch(API_URL, {
@@ -103,9 +116,17 @@ class Todoist {
           todo.text = item.content;
           todo.createDate = item.date_added;
           todo.dueDate = item.due.date;
+          todo.projectId = item.project_id;
 
           items.push(todo);
         }
+      });
+
+      data.projects.forEach(project => {
+        const p = new TodoProject();
+        p.id = project.id;
+        p.name = project.name;
+        projects.push(p);
       });
     } catch (err) {
       console.error(err);
@@ -113,8 +134,9 @@ class Todoist {
     }
 
     this.items = items;
+    this.projects = projects;
     try {
-      await this._saveItems();
+      await this._save();
     } catch (err) {
       console.error(err);
     }
@@ -126,8 +148,11 @@ class Todoist {
    * @returns {Promise<void, string>}
    * @private
    */
-  async _saveItems() {
-    return StorageData.put(STORAGE_KEY, this.items);
+  async _save() {
+    return StorageData.put(STORAGE_KEY, {
+      items: this.items,
+      projects: this.projects
+    });
   }
 
   /**
@@ -135,7 +160,8 @@ class Todoist {
    * @private
    */
   async _userToken() {
-    return await TodolistSettings.getApiKey();
+    const settings = await TodolistSettings.getSettings();
+    return settings?.apiKey || "";
   }
 }
 
