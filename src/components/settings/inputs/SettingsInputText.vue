@@ -76,7 +76,7 @@ export default {
   width: 100%;
   border: none;
   border-radius: 0.5rem;
-  padding: 0.5em;
+  padding: 0.75em 0.5em;
   font-size: inherit;
   font-family: monospace;
   color: var(--font-dark-color);

@@ -12,25 +12,23 @@
       <a href="https://todoist.com/app/" target="_blank" rel="noopener">
         Todoist app
       </a>
-      and in Settings / Integrations there's "API token". Copy the value to the
-      field above.
+      and in Settings / Integrations there's an "API token". Copy the value to
+      the field above.
     </SettingsSectionHint>
 
-    <SettingsInputText
+    <SettingsInputSelect
       :id="ids.filters"
-      type="text"
       label="Show items just from the following projects"
-      placeholder="Inbox; Project A"
-      :value="filters"
       :disabled="loading"
+      :options="projects"
+      :values="activeProjects"
     />
     <SettingsSectionHint>
-      You can specify which project items should appear. Fx. to filter only
-      "Inbox" and "House reconstruction" type
-      <code>Inbox; House reconstruction</code>.
+      You can specify from which projects the tasks should appear. Multiple
+      projects can be selected at the same time.
     </SettingsSectionHint>
     <SettingsSectionHint>
-      By default, <strong>all</strong> items are displayed.
+      If left empty, the items from <strong>all</strong> projects are displayed.
     </SettingsSectionHint>
   </SettingsSection>
 </template>
@@ -39,15 +37,23 @@
 import SettingsSection from "../section/SettingsSection";
 import SettingsSectionHint from "../section/SettingsSectionHint";
 import SettingsInputText from "../inputs/SettingsInputText";
+import SettingsInputSelect from "../inputs/SettingsInputSelect";
 import TodolistSettings from "../../../models/settings/TodolistSettings";
+import TodoList from "@/models/todo/TodoList";
 
 export default {
   name: "SettingsCategoryTodolist",
-  components: { SettingsSection, SettingsSectionHint, SettingsInputText },
+  components: {
+    SettingsSection,
+    SettingsSectionHint,
+    SettingsInputText,
+    SettingsInputSelect
+  },
   data() {
     return {
       apiKey: "",
-      filters: "",
+      activeProjects: [],
+      projects: [],
       loading: true
     };
   },
@@ -66,13 +72,13 @@ export default {
     handleSubmit(data) {
       this.loading = true;
       const oldApiKey = this.apiKey;
-      const oldFilters = this.filters;
+      const oldFilters = this.activeProjects;
       this.apiKey = data.get(this.ids.apiKey);
-      this.filters = data.get(this.ids.filters);
-      TodolistSettings.handleDataChange(this.apiKey, this.filters)
+      this.activeProjects = data.getAll(this.ids.filters);
+      TodolistSettings.handleDataChange(this.apiKey, this.activeProjects)
         .catch(() => {
           this.apiKey = oldApiKey;
-          this.filters = oldFilters;
+          this.activeProjects = oldFilters;
         })
         .finally(() => {
           this.loading = false;
@@ -80,11 +86,18 @@ export default {
     }
   },
   mounted() {
-    TodolistSettings.getSettings()
-      .then(data => {
-        if (data) {
-          this.apiKey = data.apiKey;
-          this.filters = data.filters;
+    const todolist = new TodoList();
+
+    Promise.all([TodolistSettings.getSettings(), todolist.getProjects()])
+      .then(([settings, projects]) => {
+        if (settings) {
+          this.apiKey = settings.apiKey;
+          this.activeProjects = settings.filters;
+        }
+        if (projects) {
+          this.projects = projects.map(project => {
+            return project.name;
+          });
         }
       })
       .finally(() => {

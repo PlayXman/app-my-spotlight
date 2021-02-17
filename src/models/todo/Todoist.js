@@ -31,11 +31,11 @@ class Todoist {
    * Loads items from cache and fetches a new ones.
    * @returns {Promise<{items: TodoItem[], projects: TodoProject[]}>}
    */
-  async getItems() {
-    await this._loadCachedItems();
+  async getData() {
+    await this._cacheData();
 
     if (await this._shouldUpdate()) {
-      await this._fetchAllItems();
+      await this._fetchAllData();
     }
 
     return Promise.resolve({
@@ -49,7 +49,7 @@ class Todoist {
    * @returns {Promise<void>}
    * @private
    */
-  async _loadCachedItems() {
+  async _cacheData() {
     try {
       const data = await StorageData.get(STORAGE_KEY);
       this._updated = data.updated;
@@ -89,7 +89,7 @@ class Todoist {
    * @returns {Promise<TodoItem[]>}
    * @private
    */
-  async _fetchAllItems() {
+  async _fetchAllData() {
     const params = new URLSearchParams({
       token: await this._userToken(),
       sync_token: "*",
