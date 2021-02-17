@@ -96,8 +96,8 @@ export default {
 }
 
 .settingsModal__close {
-  position: absolute;
-  right: var(--main-padding);
+  position: fixed;
+  right: calc(var(--main-padding) * 2);
   top: var(--main-padding);
 }
 </style>
