@@ -1,17 +1,19 @@
 <template>
-  <div v-if="temp > -Infinity" class="weather">
+  <Box v-if="temp > -Infinity" class="weather">
     {{ temp }}°<span class="weather__unit">{{ unit }}</span>
-  </div>
+  </Box>
 </template>
 
 <script>
 import Weather from "../models/Weather";
 import WeatherSettings from "../models/settings/WeatherSettings";
+import Box from "./Box";
 
 const weather = new Weather();
 
 export default {
   name: "Weather",
+  components: { Box },
   data() {
     return {
       temp: -Infinity,
@@ -46,6 +48,7 @@ export default {
 .weather {
   font-weight: 200;
   font-size: 2rem;
+  line-height: 1;
   padding: 0.5rem;
   text-shadow: var(--layout-items-shadow);
 }
