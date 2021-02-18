@@ -18,10 +18,10 @@ class TodolistSettings extends Settings {
 
   /**
    * @param {string} apiKey
-   * @param {string} filters
+   * @param {string[]} filters
    * @returns {Promise<void>}
    */
-  static async handleDataChange(apiKey, filters = "") {
+  static async handleDataChange(apiKey, filters = []) {
     try {
       const data = {
         apiKey,

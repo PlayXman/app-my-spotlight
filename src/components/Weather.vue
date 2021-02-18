@@ -49,7 +49,7 @@ export default {
   font-weight: 200;
   font-size: 2rem;
   line-height: 1;
-  padding: 0.5rem;
+  padding: 0.5rem 0.75rem;
   text-shadow: var(--layout-items-shadow);
 }
 

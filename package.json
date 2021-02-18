@@ -1,8 +1,8 @@
 {
   "name": "app-startpage",
-  "description": "Personal browser's start page.",
+  "description": "Personal start page for your browser.",
   "homepage": "https://github.com/PlayXman/app-startpage#readme",
-  "version": "2.14.11",
+  "version": "2.15.11",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
@@ -13,7 +13,8 @@
   "dependencies": {
     "core-js": "^3.6.4",
     "unsplash-js": "^6.0.0",
-    "vue": "^2.6.11"
+    "vue": "^2.6.11",
+    "vue-select": "^3.11.2"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.3.0",
