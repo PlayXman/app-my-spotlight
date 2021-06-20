@@ -1,7 +1,7 @@
 import TodoItem from "./TodoItem";
 import StorageData from "../storage/StorageData";
-import TodolistSettings from "@/models/settings/TodolistSettings";
-import TodoProject from "@/models/todo/TodoProject";
+import TodolistSettings from "../../models/settings/TodolistSettings";
+import TodoProject from "../../models/todo/TodoProject";
 
 /** @type {string} */
 const API_URL = "https://api.todoist.com/sync/v8/sync";

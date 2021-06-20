@@ -39,7 +39,7 @@ import SettingsSectionHint from "../section/SettingsSectionHint";
 import SettingsInputText from "../inputs/SettingsInputText";
 import SettingsInputSelect from "../inputs/SettingsInputSelect";
 import TodolistSettings from "../../../models/settings/TodolistSettings";
-import TodoList from "@/models/todo/TodoList";
+import TodoList from "../../../models/todo/TodoList";
 
 export default {
   name: "SettingsCategoryTodolist",
