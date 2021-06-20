@@ -30,7 +30,6 @@ import SettingsInputText from "../inputs/SettingsInputText";
 import BackgroundSettings from "../../../models/settings/BackgroundSettings";
 
 export default {
-  name: "SettingsCategoryBackground",
   components: { SettingsSection, SettingsSectionHint, SettingsInputText },
   data() {
     return {

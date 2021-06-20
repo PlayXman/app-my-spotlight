@@ -12,7 +12,6 @@ function createTime() {
 }
 
 export default {
-  name: "Time",
   data() {
     return {
       listener: null,

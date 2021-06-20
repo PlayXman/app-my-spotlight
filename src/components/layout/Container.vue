@@ -5,9 +5,7 @@
 </template>
 
 <script>
-export default {
-  name: "Container"
-};
+export default {};
 </script>
 
 <style>

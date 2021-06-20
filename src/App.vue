@@ -23,6 +23,7 @@
         </Cell>
       </Row>
     </Container>
+    <FirstStart />
   </div>
 </template>
 
@@ -40,6 +41,7 @@ import Storage from "./models/storage/Storage";
 import { DATA_STORE_NAME } from "./models/storage/StorageData";
 import { SETTINGS_STORE_NAME } from "./models/settings/Settings";
 import BackgroundLocality from "./components/background/BackgroundLocality";
+import FirstStart from "./components/FirstStart";
 
 //init storage
 Storage()
@@ -47,8 +49,8 @@ Storage()
   .updateDb(DATA_STORE_NAME, "type");
 
 export default {
-  name: "App",
   components: {
+    FirstStart,
     BackgroundLocality,
     QuickLinks,
     Settings,

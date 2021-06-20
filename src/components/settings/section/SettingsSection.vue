@@ -10,7 +10,6 @@
 
 <script>
 export default {
-  name: "SettingsSection",
   props: {
     title: {
       type: String

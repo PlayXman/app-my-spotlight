@@ -25,7 +25,6 @@ import SettingsInputChoice from "../../settings/inputs/SettingsInputChoice";
 import WeatherSettings from "../../../models/settings/WeatherSettings";
 
 export default {
-  name: "SettingsCategoryWeather",
   components: { SettingsInputChoice, SettingsInputSwitch, SettingsSection },
   data() {
     return {

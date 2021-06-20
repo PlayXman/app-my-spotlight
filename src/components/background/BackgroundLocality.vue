@@ -9,7 +9,6 @@ import Box from "../Box";
 import Bg from "../../models/bg/Bg";
 
 export default {
-  name: "BackgroundLocality",
   components: { Box },
   data() {
     return {

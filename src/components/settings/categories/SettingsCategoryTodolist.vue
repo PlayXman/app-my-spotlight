@@ -42,7 +42,6 @@ import TodolistSettings from "../../../models/settings/TodolistSettings";
 import TodoList from "../../../models/todo/TodoList";
 
 export default {
-  name: "SettingsCategoryTodolist",
   components: {
     SettingsSection,
     SettingsSectionHint,

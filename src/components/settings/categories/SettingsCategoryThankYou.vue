@@ -24,7 +24,6 @@
 import SettingsSection from "../section/SettingsSection";
 
 export default {
-  name: "SettingsCategoryThankYou",
   components: { SettingsSection }
 };
 </script>

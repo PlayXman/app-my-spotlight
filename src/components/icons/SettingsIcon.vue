@@ -10,7 +10,6 @@
 import IconBase from "./IconBase";
 
 export default {
-  name: "SettingsIcon",
   components: { IconBase }
 };
 </script>

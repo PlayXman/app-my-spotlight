@@ -76,7 +76,6 @@ import QuickLinksSettings from "../../../models/settings/QuickLinksSettings";
 import SettingsInputText from "../../settings/inputs/SettingsInputText";
 
 export default {
-  name: "SettingsCategoryQuickLinks",
   components: {
     SettingsInputText,
     SettingsInputSwitch,

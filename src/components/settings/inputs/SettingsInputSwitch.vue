@@ -26,7 +26,6 @@
 import SettingsInputBase from "./SettingsInputBase";
 
 export default {
-  name: "SettingsInputSwitch",
   components: { SettingsInputBase },
   props: {
     label: {

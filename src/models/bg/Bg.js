@@ -9,7 +9,7 @@ const PHOTO_CATEGORY_PARAMS = {
   query: "landscape",
   orientation: "landscape"
 };
-/** @type {number} */
+/** @type {number} in minutes */
 const REFRESH_INTERVAL = 30;
 /** @type {string} */
 const STORAGE_KEY = "bgPicture";
@@ -53,7 +53,7 @@ class Bg {
   }
 
   /**
-   * @returns {Promise<BgPicture, BgPicture>} Last pic url if rejected
+   * @returns {Promise<BgPicture>} Last pic url if rejected
    */
   async getImage() {
     try {
@@ -88,7 +88,7 @@ class Bg {
 
   /**
    * Fetches cached picture
-   * @returns {Promise<BgPicture, BgPicture>} Last downloaded pic url
+   * @returns {Promise<BgPicture>} Last downloaded pic url
    */
   async _getCachedPic() {
     const picture = new BgPicture();
@@ -109,7 +109,7 @@ class Bg {
 
   /**
    * Fetches new picture from unsplash and saves it
-   * @returns {Promise<BgPicture, BgPicture|null>}
+   * @returns {Promise<BgPicture|null>}
    * @private
    */
   async _fetchNewPic() {

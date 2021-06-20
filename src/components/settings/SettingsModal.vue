@@ -29,7 +29,6 @@ import SettingsCategoryBackground from "./categories/SettingsCategoryBackground"
 import SettingsCategoryThankYou from "./categories/SettingsCategoryThankYou";
 
 export default {
-  name: "SettingsModal",
   components: {
     SettingsCategoryThankYou,
     SettingsCategoryBackground,

@@ -15,7 +15,6 @@ import SettingsModal from "./SettingsModal";
 import SettingsIcon from "../icons/SettingsIcon";
 
 export default {
-  name: "Settings",
   components: { SettingsIcon, SettingsModal, LayoutButton },
   data: () => ({
     open: false

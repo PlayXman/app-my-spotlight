@@ -8,7 +8,6 @@ import Bg from "../../models/bg/Bg";
 const bgPicture = new Bg();
 
 export default {
-  name: "Background",
   data() {
     return {
       src: ""

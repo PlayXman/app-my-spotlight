@@ -10,7 +10,6 @@
 import IconBase from "./IconBase";
 
 export default {
-  name: "GmailIcon",
   components: { IconBase }
 };
 </script>

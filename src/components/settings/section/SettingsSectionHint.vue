@@ -5,9 +5,7 @@
 </template>
 
 <script>
-export default {
-  name: "SettingsSectionHint"
-};
+export default {};
 </script>
 
 <style>

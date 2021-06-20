@@ -67,7 +67,7 @@ class Weather {
   }
 
   /**
-   * @returns {Promise<number, number>}
+   * @returns {Promise<number>}
    * @private
    */
   async _getLastWeather() {
