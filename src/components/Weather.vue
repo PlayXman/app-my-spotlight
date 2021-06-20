@@ -12,7 +12,6 @@ import Box from "./Box";
 const weather = new Weather();
 
 export default {
-  name: "Weather",
   components: { Box },
   data() {
     return {

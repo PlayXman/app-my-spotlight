@@ -11,9 +11,9 @@
     "cleanup": "node cleanup.js"
   },
   "dependencies": {
-    "core-js": "^3.6.4",
-    "unsplash-js": "^6.0.0",
-    "vue": "^2.6.11",
+    "core-js": "^3.14.0",
+    "unsplash-js": "^6.3.0",
+    "vue": "^2.6.14",
     "vue-select": "^3.11.2"
   },
   "devDependencies": {
@@ -21,13 +21,13 @@
     "@vue/cli-plugin-eslint": "~4.3.0",
     "@vue/cli-service": "~4.3.0",
     "@vue/eslint-config-prettier": "^6.0.0",
+    "archiver": "^4.0.2",
     "babel-eslint": "^10.1.0",
+    "del": "^5.1.0",
     "eslint": "^6.7.2",
-    "eslint-plugin-prettier": "^3.1.1",
+    "eslint-plugin-prettier": "^3.4.0",
     "eslint-plugin-vue": "^6.2.2",
     "prettier": "^1.19.1",
-    "vue-template-compiler": "^2.6.11",
-    "archiver": "^4.0.1",
-    "del": "^5.1.0"
+    "vue-template-compiler": "^2.6.14"
   }
 }

@@ -22,7 +22,6 @@ import TodolistSettings from "../../models/settings/TodolistSettings";
 const todoList = new TodoList();
 
 export default {
-  name: "TodoList",
   components: { TodoItem, Box },
   data() {
     return {

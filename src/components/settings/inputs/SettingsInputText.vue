@@ -23,7 +23,6 @@
 import SettingsInputBase from "./SettingsInputBase";
 
 export default {
-  name: "SettingsInputText",
   components: { SettingsInputBase },
   props: {
     label: {

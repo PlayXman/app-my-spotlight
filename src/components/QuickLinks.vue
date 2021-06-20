@@ -24,7 +24,6 @@ import KeepIcon from "./icons/KeepIcon";
 import QuickLinksSettings from "../models/settings/QuickLinksSettings";
 
 export default {
-  name: "QuickLinks",
   components: { LayoutButton, GmailIcon, CalendarIcon, DriveIcon, KeepIcon },
   data() {
     return {

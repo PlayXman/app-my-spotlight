@@ -6,7 +6,6 @@
 
 <script>
 export default {
-  name: "Row",
   props: {
     align: {
       type: String,

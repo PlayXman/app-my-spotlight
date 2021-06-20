@@ -7,7 +7,6 @@
 
 <script>
 export default {
-  name: "TodoItem",
   props: {
     text: {
       type: String,

@@ -10,7 +10,6 @@
 
 <script>
 export default {
-  name: "Box",
   props: {
     bg: Boolean
   }

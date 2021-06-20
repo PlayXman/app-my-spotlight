@@ -5,9 +5,7 @@
 </template>
 
 <script>
-export default {
-  name: "Cell"
-};
+export default {};
 </script>
 
 <style>

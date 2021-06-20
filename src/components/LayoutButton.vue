@@ -6,7 +6,6 @@
 
 <script>
 export default {
-  name: "LayoutButton",
   props: {
     onClick: {
       type: Function,
