@@ -1,6 +1,6 @@
 {
   "manifest_version": 2,
-  "name": "StartPage",
+  "name": "My Spotlight",
   "icons": {
     "48": "/img/icons/icon-48x48.png",
     "192": "/img/icons/icon-192x192.png",
