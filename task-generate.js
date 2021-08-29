@@ -42,10 +42,11 @@ class Task {
    * Zips dist and source files for extension upload
    * @param {string} sourceFolder Glob patterns start folder name
    * @param {string[]} globs Globs (https://github.com/isaacs/node-glob#options)
+   * @param {string[]} ignore Ignored globs (https://github.com/isaacs/node-glob#options)
    * @param {string} targetFileName Archive's file name
    * @returns {Promise<void>}
    */
-  static async archiveFiles(sourceFolder, globs, targetFileName) {
+  static async archiveFiles(sourceFolder, globs, ignore = [], targetFileName) {
     return new Promise((resolve, reject) => {
       console.log(`> Creating ${targetFileName} archive`);
 
@@ -71,7 +72,8 @@ class Task {
         archive.glob(glob, {
           cwd: sourcePath,
           nodir: true,
-          dot: false
+          dot: true,
+          ignore: ignore
         });
       }
       archive.finalize();
@@ -88,8 +90,13 @@ class Task {
 
       await this.init();
       await this.updateManifest();
-      await this.archiveFiles(DIST_PATH, ["**"], "package");
-      await this.archiveFiles("", ["public/**", "src/**", "*"], "source");
+      await this.archiveFiles(DIST_PATH, ["**"], [], "package");
+      await this.archiveFiles(
+        "",
+        ["public/**", "src/**", "*"],
+        [".env.local"],
+        "source"
+      );
     } catch (error) {
       console.error(error);
     }

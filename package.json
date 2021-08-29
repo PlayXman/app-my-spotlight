@@ -4,7 +4,8 @@
   "homepage": "https://github.com/PlayXman/app-my-spotlight#readme",
   "version": "3.0.0",
   "engines": {
-    "node": ">=12"
+    "node": ">=12",
+    "npm": ">=6.14"
   },
   "private": true,
   "scripts": {
@@ -21,9 +22,9 @@
     "vue-select": "^3.13.0"
   },
   "devDependencies": {
-    "@vue/cli-plugin-babel": "~4.3.0",
-    "@vue/cli-plugin-eslint": "~4.3.0",
-    "@vue/cli-service": "~4.3.0",
+    "@vue/cli-plugin-babel": "^4.5.13",
+    "@vue/cli-plugin-eslint": "^4.5.13",
+    "@vue/cli-service": "^4.5.13",
     "@vue/eslint-config-prettier": "^6.0.0",
     "archiver": "^4.0.2",
     "babel-eslint": "^10.1.0",
