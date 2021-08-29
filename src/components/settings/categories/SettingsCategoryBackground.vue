@@ -12,8 +12,8 @@
       The category from which the background pictures are downloaded can be
       changed. Just type one or more keywords into the field. If you don't know
       which keywords you should use, head to the
-      <a href="https://unsplash.com/" target="_blank" rel="noopener"
-        >Unsplash website</a
+      <SimpleLink href="https://unsplash.com/" external
+        >Unsplash website</SimpleLink
       >, and try their search. Then copy the keywords into the field above.
     </SettingsSectionHint>
     <SettingsSectionHint>
@@ -28,9 +28,15 @@ import SettingsSection from "../section/SettingsSection";
 import SettingsSectionHint from "../section/SettingsSectionHint";
 import SettingsInputText from "../inputs/SettingsInputText";
 import BackgroundSettings from "../../../models/settings/BackgroundSettings";
+import SimpleLink from "../../SimpleLink";
 
 export default {
-  components: { SettingsSection, SettingsSectionHint, SettingsInputText },
+  components: {
+    SettingsSection,
+    SettingsSectionHint,
+    SettingsInputText,
+    SimpleLink
+  },
   data() {
     return {
       searchKeys: "",

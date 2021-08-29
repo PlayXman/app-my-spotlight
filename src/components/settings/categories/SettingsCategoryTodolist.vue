@@ -9,9 +9,9 @@
     />
     <SettingsSectionHint>
       Go to the
-      <a href="https://todoist.com/app/" target="_blank" rel="noopener">
-        Todoist app
-      </a>
+      <SimpleLink href="https://todoist.com/app/" external
+        >Todoist app</SimpleLink
+      >
       and in Settings / Integrations there's an "API token". Copy the value to
       the field above.
     </SettingsSectionHint>
@@ -40,9 +40,11 @@ import SettingsInputText from "../inputs/SettingsInputText";
 import SettingsInputSelect from "../inputs/SettingsInputSelect";
 import TodolistSettings from "../../../models/settings/TodolistSettings";
 import TodoList from "../../../models/todo/TodoList";
+import SimpleLink from "../../SimpleLink";
 
 export default {
   components: {
+    SimpleLink,
     SettingsSection,
     SettingsSectionHint,
     SettingsInputText,

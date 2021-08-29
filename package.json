@@ -1,31 +1,36 @@
 {
-  "name": "app-startpage",
-  "description": "Personal start page for your browser.",
-  "homepage": "https://github.com/PlayXman/app-startpage#readme",
-  "version": "2.15.11",
+  "name": "app-my-spotlight",
+  "description": "Your own simple start page, strongly inspired by Windows Spotlight. 💡 PROJECT IDEA: A public project developed by the community.",
+  "homepage": "https://github.com/PlayXman/app-my-spotlight#readme",
+  "version": "3.0.1",
+  "engines": {
+    "node": ">=12",
+    "npm": ">=6.14"
+  },
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build && node postBuild.js",
+    "build": "vue-cli-service build",
+    "generate": "npm run build && node task-generate.js",
     "lint": "vue-cli-service lint",
-    "cleanup": "node cleanup.js"
+    "cleanup": "node task-cleanup.js"
   },
   "dependencies": {
-    "core-js": "^3.14.0",
+    "core-js": "^3.16.3",
     "unsplash-js": "^6.3.0",
     "vue": "^2.6.14",
-    "vue-select": "^3.11.2"
+    "vue-select": "^3.13.0"
   },
   "devDependencies": {
-    "@vue/cli-plugin-babel": "~4.3.0",
-    "@vue/cli-plugin-eslint": "~4.3.0",
-    "@vue/cli-service": "~4.3.0",
+    "@vue/cli-plugin-babel": "^4.5.13",
+    "@vue/cli-plugin-eslint": "^4.5.13",
+    "@vue/cli-service": "^4.5.13",
     "@vue/eslint-config-prettier": "^6.0.0",
     "archiver": "^4.0.2",
     "babel-eslint": "^10.1.0",
     "del": "^5.1.0",
     "eslint": "^6.7.2",
-    "eslint-plugin-prettier": "^3.4.0",
+    "eslint-plugin-prettier": "^3.4.1",
     "eslint-plugin-vue": "^6.2.2",
     "prettier": "^1.19.1",
     "vue-template-compiler": "^2.6.14"

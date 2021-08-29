@@ -1,4 +1,4 @@
 const del = require("del");
 
-del("./build");
+del("./packages");
 del("./dist");

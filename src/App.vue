@@ -4,14 +4,14 @@
     <Container>
       <Row align="top">
         <Cell>
-          <Weather />
+          <WeatherWidget />
         </Cell>
         <Cell>
-          <QuickLinks />
+          <QuickLinksWidget />
         </Cell>
       </Row>
       <Row align="middle">
-        <Time />
+        <TimeWidget />
       </Row>
       <Row align="bottom">
         <Cell>
@@ -19,7 +19,7 @@
           <BackgroundLocality />
         </Cell>
         <Cell>
-          <TodoList />
+          <TodoListWidget />
         </Cell>
       </Row>
     </Container>
@@ -28,15 +28,15 @@
 </template>
 
 <script>
-import Time from "./components/Time";
+import TimeWidget from "./components/TimeWidget";
 import Background from "./components/background/Background";
-import Weather from "./components/Weather";
+import WeatherWidget from "./components/WeatherWidget";
 import Container from "./components/layout/Container";
 import Row from "./components/layout/Row";
 import Cell from "./components/layout/Cell";
-import TodoList from "./components/todoList/TodoList";
+import TodoListWidget from "./components/todoList/TodoListWidget";
 import Settings from "./components/settings/Settings";
-import QuickLinks from "./components/QuickLinks";
+import QuickLinksWidget from "./components/QuickLinksWidget";
 import Storage from "./models/storage/Storage";
 import { DATA_STORE_NAME } from "./models/storage/StorageData";
 import { SETTINGS_STORE_NAME } from "./models/settings/Settings";
@@ -52,15 +52,15 @@ export default {
   components: {
     FirstStart,
     BackgroundLocality,
-    QuickLinks,
+    QuickLinksWidget,
     Settings,
-    TodoList,
+    TodoListWidget,
     Cell,
     Container,
     Row,
-    Weather,
+    WeatherWidget,
     Background,
-    Time
+    TimeWidget
   }
 };
 </script>
