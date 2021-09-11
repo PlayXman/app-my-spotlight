@@ -108,6 +108,7 @@ export default {
 .settingsInputChoice__label {
   position: relative;
   padding-left: 2.5rem;
+  cursor: pointer;
 }
 
 .settingsInputChoice__newInput {

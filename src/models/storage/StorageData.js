@@ -6,7 +6,7 @@ const STORE_NAME = "data";
 class StorageData {
   /**
    * @param {string} type
-   * @returns {Promise<{type: string, data: *, updated: number}>}
+   * @returns {Promise<{type: string, data: any, updated: number}>}
    */
   static get(type) {
     return Db()
@@ -16,7 +16,7 @@ class StorageData {
 
   /**
    * @param {string} type
-   * @param {*} data
+   * @param {any} data
    * @returns {Promise<void>}
    */
   static put(type, data) {
@@ -27,8 +27,8 @@ class StorageData {
 
   /**
    * @param {string} key
-   * @param {*} data
-   * @returns {{data: *, type: string, updated: number}}
+   * @param {any} data
+   * @returns {{data: any, type: string, updated: number}}
    * @private
    */
   static _createObject(key, data) {

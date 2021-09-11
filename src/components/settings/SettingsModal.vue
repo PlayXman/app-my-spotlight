@@ -4,6 +4,7 @@
       <Box class="settingsModal" bg>
         <h2 class="settingsModal__title">Settings</h2>
         <div>
+          <SettingsCategoryTime />
           <SettingsCategoryWeather />
           <SettingsCategoryQuickLinks />
           <SettingsCategoryBackground />
@@ -27,9 +28,11 @@ import SettingsCategoryWeather from "./categories/SettingsCategoryWeather";
 import SettingsCategoryQuickLinks from "./categories/SettingsCategoryQuickLinks";
 import SettingsCategoryBackground from "./categories/SettingsCategoryBackground";
 import SettingsCategoryThankYou from "./categories/SettingsCategoryThankYou";
+import SettingsCategoryTime from "./categories/SettingsCategoryTime";
 
 export default {
   components: {
+    SettingsCategoryTime,
     SettingsCategoryThankYou,
     SettingsCategoryBackground,
     SettingsCategoryQuickLinks,
