@@ -19,7 +19,7 @@
     <SettingsInputSelect
       :id="ids.filters"
       label="Show items just from the following projects"
-      :disabled="loading"
+      :disabled="loading || projects.length === 0"
       :options="projects"
       :values="activeProjects"
     />
@@ -41,6 +41,16 @@ import SettingsInputSelect from "../inputs/SettingsInputSelect";
 import TodolistSettings from "../../../models/settings/TodolistSettings";
 import TodoList from "../../../models/todo/TodoList";
 import SimpleLink from "../../SimpleLink";
+
+/**
+ * @param {TodoProject[]} projects
+ * @returns {string[]} Project names
+ */
+function getProjectNames(projects) {
+  return projects.map(project => {
+    return project.name;
+  });
+}
 
 export default {
   components: {
@@ -74,9 +84,22 @@ export default {
       this.loading = true;
       const oldApiKey = this.apiKey;
       const oldFilters = this.activeProjects;
+
       this.apiKey = data.get(this.ids.apiKey);
-      this.activeProjects = data.getAll(this.ids.filters);
+      const isApiKeyEmpty = this.apiKey === "";
+      this.activeProjects = isApiKeyEmpty ? [] : data.getAll(this.ids.filters);
+
       TodolistSettings.handleDataChange(this.apiKey, this.activeProjects)
+        .then(() => {
+          if (isApiKeyEmpty) {
+            this.projects = [];
+          } else {
+            const todolist = new TodoList();
+            todolist.getProjects().then(projects => {
+              this.projects = getProjectNames(projects);
+            });
+          }
+        })
         .catch(() => {
           this.apiKey = oldApiKey;
           this.activeProjects = oldFilters;
@@ -95,10 +118,8 @@ export default {
           this.apiKey = settings.apiKey;
           this.activeProjects = settings.filters;
         }
-        if (projects) {
-          this.projects = projects.map(project => {
-            return project.name;
-          });
+        if (projects && this.apiKey !== "") {
+          this.projects = getProjectNames(projects);
         }
       })
       .finally(() => {

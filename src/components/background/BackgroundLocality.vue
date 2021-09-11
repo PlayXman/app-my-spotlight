@@ -48,5 +48,6 @@ export default {
 .backgroundLocality {
   cursor: pointer;
   display: inline-block;
+  text-shadow: var(--layout-items-shadow);
 }
 </style>

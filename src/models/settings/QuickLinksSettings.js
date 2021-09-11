@@ -5,7 +5,7 @@ const STORE_KEY = "quickLinks";
 
 class QuickLinksSettings extends Settings {
   /**
-   * @returns {Promise<{}|null>} Null if nothing found
+   * @returns {Promise<{mail: {enabled: boolean, url: string}, calendar: {enabled: boolean, url: string}, disk: {enabled: boolean, url: string}, notes: {enabled: boolean, url: string}} | null>} Null if nothing found
    */
   static async getSettings() {
     try {
@@ -16,6 +16,13 @@ class QuickLinksSettings extends Settings {
     }
   }
 
+  /**
+   * @param {{enabled: boolean, url: string}} mail
+   * @param {{enabled: boolean, url: string}} calendar
+   * @param {{enabled: boolean, url: string}} disk
+   * @param {{enabled: boolean, url: string}} notes
+   * @returns {Promise<void>}
+   */
   static async handleDataChange(mail, calendar, disk, notes) {
     try {
       const data = {
@@ -34,6 +41,12 @@ class QuickLinksSettings extends Settings {
     }
   }
 
+  /**
+   * Create new instance of quick link object
+   * @param {boolean} enabled
+   * @param {string} url
+   * @returns {{enabled: boolean, url: string}}
+   */
   static quickLink(enabled, url) {
     return {
       enabled,

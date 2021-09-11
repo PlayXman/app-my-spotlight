@@ -5,7 +5,7 @@ const STORE_KEY = "todoist";
 
 class TodolistSettings extends Settings {
   /**
-   * @returns {Promise<{}|null>} Null if nothing found
+   * @returns {Promise<{apiKey: string, filters: string[]}|null>} Null if nothing found
    */
   static async getSettings() {
     try {

@@ -78,6 +78,7 @@ export default {
 .settingsInputSwitch__label {
   position: relative;
   padding-left: 3.75rem;
+  cursor: pointer;
 }
 
 .settingsInputSwitch__newInput {

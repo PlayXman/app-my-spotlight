@@ -32,7 +32,7 @@ class Settings {
 
   /**
    * @param {string} key
-   * @returns {Promise<{category: string, data: *, updated: number}, string>}
+   * @returns {Promise<{category: string, data: any, updated: number} | string>}
    * @protected
    */
   static _loadStoredData(key) {
@@ -43,8 +43,8 @@ class Settings {
 
   /**
    * @param {string} key
-   * @param {*} data
-   * @returns {Promise<void, string>}
+   * @param {any} data
+   * @returns {Promise<void | string>}
    * @protected
    */
   static _saveDataToStore(key, data) {

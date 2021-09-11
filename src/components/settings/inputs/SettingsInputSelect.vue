@@ -101,7 +101,8 @@ export default {
   fill: rgba(255, 255, 255, 0.54);
   text-shadow: none;
 }
-.settingsInputSelect__input .vs__dropdown-menu {
+.settingsInputSelect__input .vs__dropdown-menu,
+.settingsInputSelect__input .vs__dropdown-toggle {
   border-radius: 0.5rem;
   border: none;
 }

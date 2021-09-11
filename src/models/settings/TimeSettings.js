@@ -1,16 +1,16 @@
 import Settings from "./Settings";
 
 /** @type {string} */
-const STORE_KEY = "weather";
+const STORE_KEY = "time";
 
-class WeatherSettings extends Settings {
+class TimeSettings extends Settings {
   /**
-   * @returns {Promise<{enabled: boolean, unit: "c" | "f"}|null>} Null if nothing found
+   * @returns {Promise<{enabled: boolean, hour24: boolean} | null>} Null if nothing found
    */
   static async getSettings() {
     try {
-      const weather = await this._loadStoredData(STORE_KEY);
-      return weather.data;
+      const time = await this._loadStoredData(STORE_KEY);
+      return time.data;
     } catch (err) {
       return null;
     }
@@ -18,14 +18,14 @@ class WeatherSettings extends Settings {
 
   /**
    * @param {boolean} isOn
-   * @param {"c" | "f"} unit
+   * @param {boolean} hour24
    * @returns {Promise<void>}
    */
-  static async handleDataChange(isOn, unit = "c") {
+  static async handleDataChange(isOn, hour24 = true) {
     try {
       const data = {
         enabled: isOn,
-        unit: unit
+        hour24: hour24
       };
       await this._saveDataToStore(STORE_KEY, data);
       return Promise.resolve();
@@ -38,4 +38,4 @@ class WeatherSettings extends Settings {
   }
 }
 
-export default WeatherSettings;
+export default TimeSettings;
