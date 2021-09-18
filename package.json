@@ -2,13 +2,15 @@
   "name": "app-my-spotlight",
   "description": "Your own simple start page, strongly inspired by Windows Spotlight. 💡 PROJECT IDEA: A public project developed by the community.",
   "homepage": "https://github.com/PlayXman/app-my-spotlight#readme",
-  "version": "3.1.0",
+  "version": "3.1.1",
   "engines": {
     "node": ">=12",
     "npm": ">=6.14"
   },
   "private": true,
   "scripts": {
+    "prepare": "husky install",
+    "pre-commit": "lint-staged",
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "generate": "npm run build && node task-generate.js",
@@ -33,6 +35,13 @@
     "eslint-plugin-prettier": "^3.4.1",
     "eslint-plugin-vue": "^6.2.2",
     "prettier": "^1.19.1",
-    "vue-template-compiler": "^2.6.14"
+    "vue-template-compiler": "^2.6.14",
+    "husky": "^7.0.2",
+    "lint-staged": "^11.1.2"
+  },
+  "lint-staged": {
+    "*.{js,vue}": [
+      "prettier --write"
+    ]
   }
 }
