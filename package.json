@@ -2,7 +2,7 @@
   "name": "app-my-spotlight",
   "description": "Your own simple start page, strongly inspired by Windows Spotlight. 💡 PROJECT IDEA: A public project developed by the community.",
   "homepage": "https://github.com/PlayXman/app-my-spotlight#readme",
-  "version": "3.1.4",
+  "version": "3.1.5",
   "engines": {
     "node": ">=12",
     "npm": ">=6.14"

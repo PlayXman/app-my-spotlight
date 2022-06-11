@@ -74,6 +74,13 @@ export default {
   --main-padding: 1rem;
   --element-border-radius: 1rem;
   --layout-items-shadow: 0 2px 2px rgba(0, 0, 0, 0.5);
+  --app-background: #e5e8ea;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --app-background: #212b31;
+  }
 }
 
 @font-face {
@@ -115,6 +122,6 @@ body {
   width: 100vw;
   height: 100vh;
   color: var(--font-color);
-  background: #e5e8ea;
+  background: var(--app-background);
 }
 </style>
