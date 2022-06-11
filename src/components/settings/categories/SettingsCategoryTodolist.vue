@@ -6,6 +6,7 @@
       label="Your personal api token"
       :value="apiKey"
       :disabled="loading"
+      placeholder="17ba6935968..."
     />
     <SettingsSectionHint>
       Go to the
