@@ -76,7 +76,7 @@ export default {
   text-shadow: var(--layout-items-shadow);
   max-height: 23vh;
   overflow: auto;
-  scrollbar-color: rgba(255, 255, 255, 0.2) rgba(0, 0, 0, 0.2);
+  scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
   scrollbar-width: thin;
 }
 </style>
