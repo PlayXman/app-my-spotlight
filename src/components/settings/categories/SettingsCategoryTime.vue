@@ -25,8 +25,8 @@ export default {
   components: { SettingsInputSwitch, SettingsSection },
   data() {
     return {
-      isOn: true,
-      hour24: true,
+      isOn: false,
+      hour24: false,
       loading: true
     };
   },
