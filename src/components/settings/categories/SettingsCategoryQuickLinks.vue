@@ -85,19 +85,19 @@ export default {
   data() {
     return {
       mail: {
-        enabled: true,
+        enabled: false,
         url: ""
       },
       calendar: {
-        enabled: true,
+        enabled: false,
         url: ""
       },
       disk: {
-        enabled: true,
+        enabled: false,
         url: ""
       },
       notes: {
-        enabled: true,
+        enabled: false,
         url: ""
       },
       loading: true
