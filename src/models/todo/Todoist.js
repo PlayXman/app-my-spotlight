@@ -21,7 +21,7 @@ class Todoist {
   }
 
   /**
-   * @returns {Promise<boolean>} Is user token set
+   * @returns {Promise<boolean>} Is user token set.
    */
   async isActive() {
     return (await this._userToken()) !== "";
@@ -75,7 +75,7 @@ class Todoist {
   }
 
   /**
-   * @returns {Promise<boolean>} Is allowed to update
+   * @returns {Promise<boolean>} Is allowed to update.
    * @private
    */
   async _shouldUpdate() {
@@ -107,6 +107,23 @@ class Todoist {
         headers: headers,
         body: params
       });
+      /**
+       * @type {{
+       *   items: {
+       *     due?: {
+       *       date: string;
+       *     };
+       *     id?: number;
+       *     content?: string;
+       *     date_added?: string;
+       *     project_id?: number;
+       *   }[];
+       *   projects: {
+       *     id: number;
+       *     name: string;
+       *   }[];
+       * }}
+       */
       const data = await response.json();
 
       data.items.forEach(item => {
@@ -114,8 +131,8 @@ class Todoist {
           const todo = new TodoItem();
           todo.id = item.id;
           todo.text = item.content;
-          todo.createDate = item.date_added;
-          todo.dueDate = item.due.date;
+          todo.createDate = item.date_added; // date in ISO format (e.g. "2022-06-11T09:11:20Z")
+          todo.dueDate = item.due.date; // date in date-only string (e.g. "2022-06-11")
           todo.projectId = item.project_id;
 
           items.push(todo);
@@ -156,7 +173,7 @@ class Todoist {
   }
 
   /**
-   * @returns {Promise<string>} Saved user's api token
+   * @returns {Promise<string>} Saved user's api token.
    * @private
    */
   async _userToken() {
