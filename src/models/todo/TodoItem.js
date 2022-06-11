@@ -6,7 +6,10 @@ class TodoItem {
     this._text = "";
     /** @type {string} */
     this.createDate = "";
-    /** @type {string} @private */
+    /**
+     * @type {string} In "YYYY-MM-DD" format or empty string.
+     * @private
+     * */
     this._dueDate = "";
     /** @type {number} */
     this.projectId = 0;
@@ -39,14 +42,15 @@ class TodoItem {
    * @param {string} date
    */
   set dueDate(date) {
-    this._dueDate = date;
+    let d = date.split("T");
+    this._dueDate = d[0];
   }
 
   /**
-   * @returns {string} "today", "yesterday", date for others
+   * @returns {string} "today", "yesterday", date for others.
    */
   get dueDate() {
-    const date = new Date(this._dueDate);
+    const date = this._localDueDate;
     const now = new Date();
 
     let d = "";
@@ -67,18 +71,18 @@ class TodoItem {
   }
 
   /**
-   * @returns {boolean} True for past and today date
+   * @returns {boolean} True for past and today date.
    */
   isDue() {
     const now = new Date();
-    const date = new Date(this._dueDate);
+    const date = this._localDueDate;
 
     return now >= date;
   }
 
   /**
    * @param {string} text
-   * @returns {string}
+   * @returns {string} Text of max 15 characters.
    * @private
    */
   _formatUrlMarkdown(text) {
@@ -94,7 +98,7 @@ class TodoItem {
       }
 
       newText += result.slice(lastIndex, m.index);
-      newText += m[1].substr(0, 15) + "...";
+      newText += m[1].slice(0, 15) + "...";
 
       lastIndex = regex.lastIndex;
     }
@@ -104,6 +108,14 @@ class TodoItem {
     }
 
     return result;
+  }
+
+  /**
+   * @returns {Date} Due date in local timezone.
+   * @private
+   */
+  get _localDueDate() {
+    return new Date(`${this._dueDate}T00:00`);
   }
 }
 
