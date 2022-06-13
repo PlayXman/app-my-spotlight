@@ -74,13 +74,6 @@ export default {
   --main-padding: 1rem;
   --element-border-radius: 1rem;
   --layout-items-shadow: 0 2px 2px rgba(0, 0, 0, 0.5);
-  --app-background: #e5e8ea;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --app-background: #212b31;
-  }
 }
 
 @font-face {
@@ -107,9 +100,7 @@ export default {
   font-weight: 700;
 }
 
-html,
 body {
-  margin: 0;
   font-family: "Josefin Sans", sans-serif;
 }
 
@@ -122,6 +113,5 @@ body {
   width: 100vw;
   height: 100vh;
   color: var(--font-color);
-  background: var(--app-background);
 }
 </style>

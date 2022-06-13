@@ -7,6 +7,23 @@
   <title>New Page</title>
   <link rel=icon type=image/png sizes=32x32 href=/img/icons/favicon-32x32.png>
   <link rel=icon type=image/png sizes=16x16 href=/img/icons/favicon-16x16.png>
+  <style>
+    :root {
+      --app-background: #e5e8ea;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --app-background: #212b31;
+      }
+    }
+
+    html,
+    body {
+      margin: 0;
+      background: var(--app-background);
+    }
+  </style>
 </head>
 <body>
   <noscript>
