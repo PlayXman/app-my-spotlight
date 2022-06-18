@@ -1,10 +1,11 @@
 <template>
   <svg
     class="icon"
-    width="50"
-    height="50"
-    viewBox="0 0 50 50"
+    :width="width"
+    :height="height"
+    :viewBox="`0 0 ${width} ${height}`"
     :aria-label="name"
+    :fill="[fill ? 'currentColor' : 'none']"
   >
     <slot />
   </svg>
@@ -16,6 +17,18 @@ export default {
     name: {
       type: String,
       required: true
+    },
+    width: {
+      type: Number,
+      default: 50
+    },
+    height: {
+      type: Number,
+      default: 50
+    },
+    fill: {
+      type: Boolean,
+      default: true
     }
   }
 };
@@ -27,6 +40,5 @@ export default {
   width: 100%;
   height: auto;
   filter: drop-shadow(var(--layout-items-shadow));
-  fill: currentColor;
 }
 </style>

@@ -1,8 +1,17 @@
-const DB_NAME = "appDb";
-const DB_VERSION = 1;
+import { initializeSettingsAndDataMigration } from "./migration/0001_initializeSettingsAndData";
+import { updateWeatherDataWithNewApi } from "./migration/0002_updateWeatherDataWithNewApi";
 
-/** @type {Map<string, {}>} Storages' configurations */
-const onDbUpdateItems = new Map();
+const DB_NAME = "appDb";
+/**
+ * Should correspond with number of migration scripts.
+ *
+ * ## How to update
+ * 1. Create migration script in /src/models/storage/migration.
+ * 2. Add the migration script to array in DB._onUpgradeNeeded.
+ *
+ * @type {number} Current IndexedDB version.
+ */
+const DB_VERSION = 2;
 
 /**
  * IndexedDB wrapper
@@ -18,23 +27,6 @@ class Db {
   }
 
   /**
-   * Define new store to be registered when db version is updated
-   * @param {string} storeName
-   * @param {string} keyPath
-   * @param {boolean} autoIncrement
-   * @param {string[]} indexes
-   * @returns {Db}
-   */
-  updateDb(storeName, keyPath = "", autoIncrement = false, indexes = []) {
-    onDbUpdateItems.set(storeName, {
-      keyPath,
-      autoIncrement,
-      indexes
-    });
-    return this;
-  }
-
-  /**
    * @param {string} storeName
    * @returns {Db}
    */
@@ -44,7 +36,7 @@ class Db {
   }
 
   /**
-   * @param {number | string | Date | BufferSource | IDBArrayKey} key
+   * @param {IDBValidKey | IDBKeyRange} key
    * @returns {Promise<{}, string>} Data from db
    */
   get(key) {
@@ -84,7 +76,7 @@ class Db {
   }
 
   /**
-   * @param {number | string | Date | BufferSource | IDBArrayKey} key
+   * @param {IDBValidKey | IDBKeyRange} key
    * @returns {Promise<void, string>}
    */
   delete(key) {
@@ -126,21 +118,42 @@ class Db {
    * @param {IDBVersionChangeEvent} e
    * @private
    */
-  _onUpgradeNeeded(e) {
+  async _onUpgradeNeeded(e) {
+    /** @type {IDBDatabase} */
     const db = e.target.result;
+    const { oldVersion, newVersion } = e;
 
-    onDbUpdateItems.forEach((data, key) => {
-      if (!db.objectStoreNames.contains(key)) {
-        const store = db.createObjectStore(key, {
-          keyPath: data.keyPath,
-          autoIncrement: data.autoIncrement
-        });
+    if (oldVersion >= newVersion) {
+      return;
+    }
 
-        data.indexes.forEach(index => {
-          store.createIndex(index, index, { unique: false });
-        });
+    console.log(
+      `STORAGE: Update storage from v${oldVersion} to v${newVersion}`
+    );
+
+    /**
+     * Migration scripts. Must correspond with DB versions.
+     *
+     * The index of the migration script equals to IndexedDB version for which is the migration intended minus 1. If you need to skip one version create empty migration script and add it to the array.
+     *
+     * @type {((function(): void)|(function(): Promise<unknown>))[]}
+     */
+    const migrations = [
+      () => initializeSettingsAndDataMigration(db),
+      () => updateWeatherDataWithNewApi(e.target.transaction)
+    ];
+
+    for (let v = oldVersion; v < newVersion; v++) {
+      const migration = migrations[v];
+      if (migration) {
+        try {
+          await migration();
+        } catch (e) {
+          console.error("STORAGE: Version update failed", e);
+          break;
+        }
       }
-    });
+    }
   }
 }
 
