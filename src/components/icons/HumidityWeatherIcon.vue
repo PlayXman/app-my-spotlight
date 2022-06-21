@@ -1,5 +1,5 @@
 <template>
-  <IconBase name="humidity" :width="16" :height="16">
+  <IconBase name="humidity" :width="16" :height="16" :fill="true">
     <path
       d="M8.50001 5C7.98332 6 5.39987 12 8.50001 12C11.6002 12 9.0166 6 8.50001 5Z"
     />

@@ -1,5 +1,5 @@
 <template>
-  <IconBase name="UV index" :width="16" :height="16">
+  <IconBase name="UV index" :width="16" :height="16" :fill="true">
     <path
       fill-rule="evenodd"
       clip-rule="evenodd"
