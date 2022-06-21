@@ -15,7 +15,7 @@ class StorageData {
   }
 
   /**
-   * @param {string} type
+   * @param {string} type Key
    * @param {any} data
    * @returns {Promise<void>}
    */

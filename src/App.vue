@@ -30,23 +30,15 @@
 <script>
 import TimeWidget from "./components/TimeWidget";
 import Background from "./components/background/Background";
-import WeatherWidget from "./components/WeatherWidget";
+import WeatherWidget from "./components/weather/WeatherWidget";
 import Container from "./components/layout/Container";
 import Row from "./components/layout/Row";
 import Cell from "./components/layout/Cell";
 import TodoListWidget from "./components/todoList/TodoListWidget";
 import Settings from "./components/settings/Settings";
 import QuickLinksWidget from "./components/QuickLinksWidget";
-import Storage from "./models/storage/Storage";
-import { DATA_STORE_NAME } from "./models/storage/StorageData";
-import { SETTINGS_STORE_NAME } from "./models/settings/Settings";
 import BackgroundLocality from "./components/background/BackgroundLocality";
 import FirstStart from "./components/FirstStart";
-
-//init storage
-Storage()
-  .updateDb(SETTINGS_STORE_NAME, "category")
-  .updateDb(DATA_STORE_NAME, "type");
 
 export default {
   components: {
@@ -68,6 +60,7 @@ export default {
 <style>
 :root {
   --font-color: #fff;
+  --font-medium-color: #8e9ca4;
   --font-dark-color: #585858;
   --action-color: #16a1d7;
   --action-bg-color: rgba(44, 58, 66, 0.9);

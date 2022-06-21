@@ -21,6 +21,10 @@
       >
       <br />
       <SimpleLink href="https://todoist.com/" external>Todoist</SimpleLink>
+      <br />
+      <SimpleLink href="https://www.flaticon.com/authors/good-ware" external
+        >Weather icons created by Good Ware - Flaticon</SimpleLink
+      >
     </p>
     <p>Thank you for your service. Stay awesome!</p>
     <p>•</p>
