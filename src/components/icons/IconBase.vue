@@ -20,15 +20,15 @@ export default {
     },
     width: {
       type: Number,
-      default: 50
+      required: true
     },
     height: {
       type: Number,
-      default: 50
+      required: true
     },
     fill: {
       type: Boolean,
-      default: true
+      default: false
     }
   }
 };
