@@ -56,7 +56,7 @@ export class Forecast {
         w.uvi = hour.uvi;
         w.weather = hour.weather;
         w.weatherIcon = hour.weatherIcon;
-        w.date = new Date(hour.date);
+        w.date = hour.date ? new Date(hour.date) : undefined;
 
         this.hourly.push(w);
       }

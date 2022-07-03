@@ -51,6 +51,7 @@ import Box from "../Box";
 import WeatherIcon from "./WeatherIcon";
 import UvWeatherIcon from "../icons/UvWeatherIcon";
 import HumidityWeatherIcon from "../icons/HumidityWeatherIcon";
+import { roundTo } from "../../models/utils";
 
 const weather = new Weather();
 
@@ -84,8 +85,8 @@ export default {
 
               // Current weather
               this.current.temperature = forecast.current.temperature;
-              this.current.humidity = forecast.current.humidity;
-              this.current.uvi = forecast.current.uvi;
+              this.current.humidity = roundTo(forecast.current.humidity);
+              this.current.uvi = roundTo(forecast.current.uvi);
               this.current.weather = forecast.current.weather;
               this.current.weatherIcon = forecast.current.weatherIcon;
 
@@ -94,11 +95,11 @@ export default {
               for (const hour of forecast.hourly) {
                 this.hourly.push({
                   temperature: hour.temperature,
-                  precipitation: hour.precipitation * 100,
-                  uvi: hour.uvi,
+                  precipitation: roundTo(hour.precipitation * 100),
+                  uvi: roundTo(hour.uvi),
                   weather: hour.weather,
                   weatherIcon: hour.weatherIcon,
-                  time: hour.date.toLocaleString("en-US", {
+                  time: hour.date?.toLocaleString("en-US", {
                     timeStyle: "short",
                     hour12: false
                   })
