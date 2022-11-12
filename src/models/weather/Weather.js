@@ -6,7 +6,7 @@ import { WeatherModel } from "./WeatherModel";
 /** @type {string} Weather forecast website for the user. */
 const WEATHER_WEBSITE_URL = "https://weather.com/en-AU/weather/today/l/";
 /** @type {string} Weather server API URL. */
-const API_URL = "https://api.openweathermap.org/data/2.5/onecall";
+const API_URL = "https://api.openweathermap.org/data/3.0/onecall";
 /** @type {number} The interval for  30 minutes */
 const INTERVAL = 30 * 60 * 1000;
 /** @type {string} */
