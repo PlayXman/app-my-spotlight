@@ -4,7 +4,7 @@ import TodolistSettings from "../../models/settings/TodolistSettings";
 import TodoProject from "../../models/todo/TodoProject";
 
 /** @type {string} */
-const API_URL = "https://api.todoist.com/sync/v8/sync";
+const API_URL = "https://api.todoist.com/sync/v9/sync";
 /** @type {number} In minutes */
 const UPDATE_INTERVAL = 2;
 /** @type {string} */
