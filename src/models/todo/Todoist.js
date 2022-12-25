@@ -91,12 +91,12 @@ class Todoist {
    */
   async _fetchAllData() {
     const params = new URLSearchParams({
-      token: await this._userToken(),
       sync_token: "*",
       resource_types: '["items", "projects"]'
     });
     const headers = new Headers();
     headers.append("Content-Type", "application/x-www-form-urlencoded");
+    headers.append("Authorization", `Bearer ${await this._userToken()}`);
 
     const items = [];
     const projects = [];
