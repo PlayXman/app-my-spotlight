@@ -1,6 +1,6 @@
 <template>
   <li class="todoItem">
-    <span v-html="text"></span>{{ " " }}
+    <span v-html="text"></span>
     <span class="todoItem__date" v-if="date">{{ date }}</span>
   </li>
 </template>
@@ -29,7 +29,6 @@ export default {
 
 .todoItem {
   position: relative;
-  padding-left: 1.3em;
   animation: 300ms ease-out forwards appear;
 }
 
@@ -37,24 +36,15 @@ export default {
   margin-bottom: 0.5rem;
 }
 
-.todoItem:before {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: 0;
-  display: block;
-  opacity: 0.3;
-  border: 1px solid var(--font-color);
-  border-radius: 50%;
-  width: 0.75em;
-  height: 0.75em;
-}
-
 .todoItem__date {
-  font-size: 0.8em;
+  font-size: 0.75em;
+  line-height: 1;
   display: inline-block;
-  padding: 0 0.2em;
+  vertical-align: baseline;
+  padding: 0.125rem 0.1875rem 0.0625rem;
+  margin-left: 0.5em;
   background: rgba(255, 255, 255, 0.2);
   border-radius: var(--element-border-radius);
+  text-shadow: none;
 }
 </style>
